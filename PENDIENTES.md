@@ -2,6 +2,43 @@
 
 > Generado automáticamente. Última actualización: 2026-08-04.
 
+## 0m. Deploy en Render arreglado y verificado en producción (2026-08-04)
+
+El usuario compartió API key + Service ID de Render (`srv-d9ot841t0dsc73bqidig`
+— OJO: en su mensaje el ID venía con dos variantes, "841t" y "841f"; la
+correcta es "841t", la otra da 404) para que diagnosticara y arreglara el
+deploy de forma autónoma vía API.
+
+**Causa raíz real** (no era config de Render — el rootDir/buildCommand/
+startCommand del servicio ya estaban exactamente como se pidió):
+`backend/tsconfig.build.json` no fijaba `rootDir`, así que TypeScript
+inferí­a la raíz común de los archivos compilados como `backend/` (por
+`prisma.config.ts`, que vive fuera de `src/`) en vez de `backend/src/`. Eso
+hacía que `nest build` generara `dist/src/main.js` en lugar de
+`dist/main.js`, y el `startCommand: node dist/main.js` fallaba con
+`Cannot find module '.../dist/main.js'` (confirmado leyendo los logs reales
+del deploy vía `GET /v1/logs`).
+
+**Fix**: se agregó `"rootDir": "src"` a `tsconfig.build.json` y se excluyó
+`prisma.config.ts`/`prisma/**` de esa compilación (no los necesita: el CLI
+de Prisma los lee directo de la fuente vía `tsx`/su propio loader, nunca
+desde `dist/`). Verificado localmente que `dist/main.js` ahora existe.
+
+**No hizo falta tocar la configuración del servicio en Render** — ya
+coincidía con lo pedido. Solo faltaba el commit: el primer commit
+("setup inicial...") se había hecho ANTES de la migración a Neon, así que
+Render seguía deployando código con SQLite. Se commiteó todo lo pendiente
+(migración a Postgres/Neon, el fix de arriba, `render.yaml`, el mapa de
+arquitectura por grafos, fixes del dashboard) y se pusheó a `main` — con
+`autoDeploy: yes` sobre esa rama, Render arrancó el deploy solo.
+
+**Verificado end-to-end contra producción real** (no solo el build):
+deploy pasó a `status: "live"` en ~1 minuto, y
+`https://sistemaerpjaumina.onrender.com/recipes` y `/auth/login` devuelven
+200 con datos reales de Neon. Nota: el plan `free` de Render duerme el
+servicio tras inactividad — la primera request después de dormir tarda
+~30s en responder (cold start), es esperable y no es un error.
+
 ## 0l. render.yaml (Infra as Code del backend) + CLI de Render instalada (2026-08-04)
 
 - **`render.yaml`** en la raíz: define el web service `jaumina-erp-backend`
