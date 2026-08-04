@@ -20,11 +20,13 @@ import { PersonalModule } from './modules/personal/personal.module';
 import { AuditoriaModule } from './modules/auditoria/auditoria.module';
 import { ConfiguracionModule } from './modules/configuracion/configuracion.module';
 import { StaffModule } from './modules/staff/staff.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
     PrismaModule,
     AuthModule,
+    HealthModule,
     UsersModule,
     IngredientsModule,
     RecipesModule,
