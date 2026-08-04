@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  /* === White Bloom & Gold — tema por defecto (Ja'umina ERP) === */
+  --paper: #ffffff;
+  --paper-muted: #f8f9fa;
+  --blush: #f1ece9;
+  --anthracite: #2d2d2d;
+  --anthracite-soft: #6b6b6b;
+
+  /* Gold accent (se mantiene entre temas) */
+  --champagne-gold: #d4af37;
+  --champagne-light: #e8d48b;
+  --champagne-dark: #b8960f;
+
+  /* Semantic */
+  --ice-emerald: #10b981;
+  --velvet-rose: #e11d48;
+  --amber-warning: #f39c12;
+
+  /* === Legacy dark theme (usado únicamente por /cotizador) === */
+  --obsidian-deep: #0a0a0c;
+  --obsidian-card: #121216;
+  --obsidian-surface: #1a1a1f;
+  --ivory: #f5f0e8;
+  --smoke: #8a8a8e;
+  --smoke-light: #b0b0b4;
+
+  /* Glass (compartido entre temas, funciona sobre claro y oscuro) */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(212, 175, 55, 0.15);
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-muted: var(--paper-muted);
+  --color-blush: var(--blush);
+  --color-anthracite: var(--anthracite);
+  --color-anthracite-soft: var(--anthracite-soft);
+
+  --color-obsidian-deep: var(--obsidian-deep);
+  --color-obsidian-card: var(--obsidian-card);
+  --color-obsidian-surface: var(--obsidian-surface);
+
+  --color-champagne-gold: var(--champagne-gold);
+  --color-champagne-light: var(--champagne-light);
+  --color-champagne-dark: var(--champagne-dark);
+
+  --color-ice-emerald: var(--ice-emerald);
+  --color-velvet-rose: var(--velvet-rose);
+  --color-amber-warning: var(--amber-warning);
+
+  --color-ivory: var(--ivory);
+  --color-smoke: var(--smoke);
+  --color-smoke-light: var(--smoke-light);
+
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+
+  --font-display: var(--font-outfit);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  background: var(--paper-muted);
+}
+
+body {
+  background: var(--paper-muted);
+  color: var(--anthracite);
+  font-feature-settings: "tnum" 1, "cv11" 1;
+}
+
+* {
+  border-color: var(--glass-border);
+}
+
+::selection {
+  background: var(--champagne-gold);
+  color: var(--anthracite);
+}
+
+:focus-visible {
+  outline: 2px solid var(--champagne-gold);
+  outline-offset: 2px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Legacy dark glassmorphism — usado únicamente por /cotizador */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* White Bloom & Gold — superficie estándar para cards/paneles del ERP */
+.surface-card {
+  background: var(--paper);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  box-shadow: 0 1px 2px rgba(45, 45, 45, 0.04), 0 8px 24px -12px rgba(45, 45, 45, 0.12);
+}
+
+.surface-card-muted {
+  background: var(--paper-muted);
+  border: 1px solid rgba(45, 45, 45, 0.08);
+}
+
+/* Borde perforado de "comanda" — evoca el ticket de un bar */
+.comanda-perforation {
+  background-image: radial-gradient(
+    circle at center,
+    var(--obsidian-deep) 2.5px,
+    transparent 2.6px
+  );
+  background-size: 14px 100%;
+  background-position: top center;
+  background-repeat: repeat-x;
+  height: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,15 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/generated/prisma
+
+# Build output
+/dist
+
+# SQLite dev database (datos de seed, se regenera con `prisma db push` + `prisma db seed`)
+*.db
+*.db-journal
+
+# Test coverage
+/coverage

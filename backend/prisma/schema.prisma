@@ -1,0 +1,386 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  COORDINADOR
+  BARTENDER
+}
+
+enum EventStatus {
+  COTIZADO
+  CONFIRMADO
+  EN_CURSO
+  FINALIZADO
+  CANCELADO
+}
+
+enum Unit {
+  ML
+  GRAMOS
+  UNIDADES
+  KILOS
+}
+
+enum DrinkCategory {
+  SIGNATURE
+  CLASICOS
+  SIN_ALCOHOL
+  SHOTS
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(BARTENDER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  auditLogs AuditLog[]
+}
+
+model Ingredient {
+  id          String   @id @default(uuid())
+  name        String
+  unit        Unit     @default(ML)
+  stock       Float    @default(0)
+  minStock    Float    @default(0)
+  costPerUnit Float // Costo en Guaraníes (₲)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  recipeIngredients RecipeIngredient[]
+}
+
+model Recipe {
+  id          String        @id @default(uuid())
+  name        String
+  description String?
+  glassware   String // Ejemplo: Copa Cúpula, Tumbler, Vaso Old Fashioned
+  category    DrinkCategory @default(CLASICOS)
+  price       Int           @default(0) // Precio sugerido de venta en Guaraníes (₲), sin decimales
+  prepTimeSec Int           @default(60)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  ingredients RecipeIngredient[]
+  eventDrinks EventDrink[]
+}
+
+model RecipeIngredient {
+  id           String @id @default(uuid())
+  recipeId     String
+  ingredientId String
+  quantity     Float // Cantidad requerida (ej: 45 ml, 2 unidades)
+
+  recipe     Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+}
+
+model Event {
+  id           String      @id @default(uuid())
+  title        String // Ejemplo: "Boda Gonzalez - Sotto Vento"
+  clientName   String
+  clientPhone  String?
+  location     String
+  eventDate    DateTime
+  guestsCount  Int
+  serviceHours Int         @default(4)
+  status       EventStatus @default(COTIZADO)
+
+  // Finanzas del Evento en Guaraníes (₲)
+  totalAmount Float @default(0)
+  depositPaid Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  drinks EventDrink[]
+  staff  EventStaff[]
+}
+
+model EventDrink {
+  id       String @id @default(uuid())
+  eventId  String
+  recipeId String
+
+  event  Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id])
+}
+
+model Staff {
+  id        String   @id @default(uuid())
+  name      String
+  role      String // Head Bartender, Barback, Coctelero VIP
+  dailyRate Float // Costo de jornal por evento en ₲
+  phone     String?
+  createdAt DateTime @default(now())
+
+  events EventStaff[]
+}
+
+model EventStaff {
+  id      String @id @default(uuid())
+  eventId String
+  staffId String
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  staff Staff @relation(fields: [staffId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String // "DELETE_EVENT", "UPDATE_PRICES", etc.
+  entity    String
+  details   String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+// ============================================================
+// Ja'umina ERP — módulos genéricos (JAUMINA_WORKSPACE_RULES.md §9)
+// Conviven con los modelos de coctelería de arriba (Ingredient/Recipe/
+// Event/Staff), que siguen sirviendo a /cotizador. Ver PENDIENTES.md.
+// ============================================================
+
+enum MovimientoTipo {
+  ENTRADA
+  SALIDA
+  AJUSTE
+}
+
+enum MovimientoOrigen {
+  COMPRA
+  VENTA
+  MANUAL
+}
+
+enum CompraStatus {
+  PENDIENTE
+  COMPLETADA
+  ANULADA
+}
+
+enum VentaStatus {
+  PAGADA
+  PENDIENTE
+  ANULADA
+}
+
+enum GastoOrigen {
+  MANUAL
+  COMPRA
+}
+
+enum CajaEstado {
+  ABIERTA
+  CERRADA
+}
+
+enum EmpleadoEstado {
+  ACTIVO
+  INACTIVO
+}
+
+enum EmpleadoMovimientoTipo {
+  ADELANTO
+  PRESTAMO
+}
+
+model Cliente {
+  id        String    @id @default(uuid())
+  name      String
+  documento String? // RUC / CI
+  phone     String?
+  email     String?
+  address   String?
+  notes     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  ventas Venta[]
+}
+
+model Proveedor {
+  id        String    @id @default(uuid())
+  name      String
+  documento String? // RUC
+  phone     String?
+  email     String?
+  address   String?
+  notes     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  compras Compra[]
+}
+
+model Producto {
+  id        String    @id @default(uuid())
+  name      String
+  code      String? // código / SKU
+  category  String?
+  unit      Unit      @default(UNIDADES)
+  costPrice Int       @default(0) // Costo de compra en ₲
+  salePrice Int       @default(0) // Precio de venta en ₲
+  stock     Float     @default(0)
+  minStock  Float     @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  compraItems CompraItem[]
+  ventaItems  VentaItem[]
+  movimientos MovimientoInventario[]
+}
+
+model Compra {
+  id            String       @id @default(uuid())
+  proveedorId   String
+  invoiceNumber String?
+  purchaseDate  DateTime     @default(now())
+  status        CompraStatus @default(COMPLETADA)
+  totalAmount   Int          @default(0) // ₲, suma de los items
+  notes         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  deletedAt     DateTime?
+
+  proveedor Proveedor    @relation(fields: [proveedorId], references: [id])
+  items     CompraItem[]
+  gasto     Gasto?
+}
+
+model CompraItem {
+  id         String @id @default(uuid())
+  compraId   String
+  productoId String
+  quantity   Float
+  unitCost   Int // ₲
+  subtotal   Int // ₲
+
+  compra   Compra   @relation(fields: [compraId], references: [id], onDelete: Cascade)
+  producto Producto @relation(fields: [productoId], references: [id])
+}
+
+model Venta {
+  id          String      @id @default(uuid())
+  clienteId   String?
+  saleDate    DateTime    @default(now())
+  status      VentaStatus @default(PAGADA)
+  totalAmount Int         @default(0) // ₲, suma de los items
+  paidAmount  Int         @default(0) // ₲
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+
+  cliente Cliente?    @relation(fields: [clienteId], references: [id])
+  items   VentaItem[]
+}
+
+model VentaItem {
+  id         String @id @default(uuid())
+  ventaId    String
+  productoId String
+  quantity   Float
+  unitPrice  Int // ₲
+  subtotal   Int // ₲
+
+  venta    Venta    @relation(fields: [ventaId], references: [id], onDelete: Cascade)
+  producto Producto @relation(fields: [productoId], references: [id])
+}
+
+model MovimientoInventario {
+  id          String           @id @default(uuid())
+  productoId  String
+  tipo        MovimientoTipo
+  origen      MovimientoOrigen @default(MANUAL)
+  quantity    Float // siempre positivo; el signo lo da `tipo`
+  reason      String?
+  referenceId String? // id de Compra o Venta cuando origen no es MANUAL
+  createdAt   DateTime         @default(now())
+
+  producto Producto @relation(fields: [productoId], references: [id])
+}
+
+model Gasto {
+  id          String      @id @default(uuid())
+  description String
+  category    String?
+  amount      Int // ₲
+  origin      GastoOrigen @default(MANUAL)
+  compraId    String?     @unique
+  expenseDate DateTime    @default(now())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+
+  compra Compra? @relation(fields: [compraId], references: [id])
+}
+
+model CajaSesion {
+  id             String     @id @default(uuid())
+  openedAt       DateTime   @default(now())
+  closedAt       DateTime?
+  openingAmount  Int        @default(0) // ₲
+  closingAmount  Int? // ₲ contado al cierre
+  expectedAmount Int? // ₲ esperado según ventas del período
+  status         CajaEstado @default(ABIERTA)
+  notes          String?
+  openedById     String
+  closedById     String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Empleado {
+  id        String         @id @default(uuid())
+  name      String
+  position  String
+  phone     String?
+  salary    Int            @default(0) // ₲ (mensual o jornal, según el rubro)
+  hireDate  DateTime       @default(now())
+  status    EmpleadoEstado @default(ACTIVO)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  deletedAt DateTime?
+
+  movimientos EmpleadoMovimiento[]
+}
+
+// Configuración de la empresa — se espera una única fila (singleton).
+model Empresa {
+  id        String   @id @default(uuid())
+  name      String   @default("Mi Empresa")
+  ruc       String?
+  address   String?
+  phone     String?
+  email     String?
+  currency  String   @default("PYG")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EmpleadoMovimiento {
+  id         String                 @id @default(uuid())
+  empleadoId String
+  tipo       EmpleadoMovimientoTipo
+  amount     Int // ₲
+  date       DateTime               @default(now())
+  notes      String?
+  createdAt  DateTime               @default(now())
+
+  empleado Empleado @relation(fields: [empleadoId], references: [id])
+}
