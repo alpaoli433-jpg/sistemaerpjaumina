@@ -105,6 +105,18 @@ export function getIngredients(token: string): Promise<Ingredient[]> {
   });
 }
 
+export interface Staff {
+  id: string;
+  name: string;
+  role: string;
+  dailyRate: number;
+  phone: string | null;
+}
+
+export function getStaff(token: string): Promise<Staff[]> {
+  return request<Staff[]>('/staff', { headers: authHeaders(token) });
+}
+
 interface EventPayload {
   title: string;
   clientName: string;

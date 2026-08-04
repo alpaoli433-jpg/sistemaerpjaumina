@@ -5,13 +5,11 @@
 
 ## Alta
 
-- [ ] Cambiar la contraseña del usuario Admin de seed (`Admin123!`) antes de
-      cualquier uso real — hoy es la misma en dev y en Neon/producción.
-- [ ] Auditoría automática en los módulos viejos de coctelería (`events`,
-      `recipes`, `ingredients`): solo los módulos nuevos (`clientes`, `ventas`,
-      etc.) loggean en `AuditLog` vía `AuditService`.
-- [ ] CRUD de `Staff` (backend + frontend): no existe endpoint para listarlo,
-      por eso `/eventos` no puede asignar personal al crear un evento.
+- [ ] Rotar la contraseña real del Admin en Neon/producción: el seed ya exige
+      `ADMIN_SEED_PASSWORD` cuando `NODE_ENV=production` (si falta, falla) y
+      el `upsert` ahora sí actualiza el hash en un usuario existente — falta
+      setear esa env var en Render y correr `npx prisma db seed` una vez
+      contra la DB de producción para reemplazar el hash de `Admin123!`.
 
 ## Media
 

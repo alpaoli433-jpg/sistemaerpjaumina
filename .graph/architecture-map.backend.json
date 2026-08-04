@@ -358,6 +358,23 @@
         },
         {
           "dynamic": false,
+          "module": "./modules/staff/staff.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/staff.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
           "module": "./modules/ventas/ventas.module",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
@@ -628,6 +645,8 @@
       ],
       "dependents": [
         "backend/src/auth/auth.controller.ts",
+        "backend/src/events/events.controller.ts",
+        "backend/src/ingredients/ingredients.controller.ts",
         "backend/src/modules/caja/caja.controller.ts",
         "backend/src/modules/clientes/clientes.controller.ts",
         "backend/src/modules/compras/compras.controller.ts",
@@ -637,7 +656,9 @@
         "backend/src/modules/personal/personal.controller.ts",
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
-        "backend/src/modules/ventas/ventas.controller.ts"
+        "backend/src/modules/staff/staff.controller.ts",
+        "backend/src/modules/ventas/ventas.controller.ts",
+        "backend/src/recipes/recipes.controller.ts"
       ],
       "orphan": false,
       "valid": true
@@ -649,7 +670,9 @@
         "backend/src/auth/auth.controller.ts",
         "backend/src/common/decorators/current-user.decorator.ts",
         "backend/src/auth/strategies/jwt.strategy.ts",
+        "backend/src/events/events.controller.ts",
         "backend/src/common/guards/roles.guard.ts",
+        "backend/src/ingredients/ingredients.controller.ts",
         "backend/src/modules/caja/caja.controller.ts",
         "backend/src/modules/clientes/clientes.controller.ts",
         "backend/src/modules/compras/compras.controller.ts",
@@ -659,7 +682,9 @@
         "backend/src/modules/personal/personal.controller.ts",
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
-        "backend/src/modules/ventas/ventas.controller.ts"
+        "backend/src/modules/staff/staff.controller.ts",
+        "backend/src/modules/ventas/ventas.controller.ts",
+        "backend/src/recipes/recipes.controller.ts"
       ],
       "orphan": false,
       "valid": true
@@ -733,10 +758,10 @@
         "backend/src/auth/auth.service.ts",
         "backend/src/auth/strategies/jwt.strategy.ts",
         "backend/src/dashboard/dashboard.service.ts",
+        "backend/src/shared/audit/audit.service.ts",
         "backend/src/events/events.service.ts",
         "backend/src/ingredients/ingredients.service.ts",
         "backend/src/modules/auditoria/auditoria.service.ts",
-        "backend/src/shared/audit/audit.service.ts",
         "backend/src/modules/caja/caja.service.ts",
         "backend/src/modules/clientes/clientes.service.ts",
         "backend/src/modules/compras/compras.service.ts",
@@ -746,6 +771,7 @@
         "backend/src/modules/personal/personal.service.ts",
         "backend/src/modules/productos/productos.service.ts",
         "backend/src/modules/proveedores/proveedores.service.ts",
+        "backend/src/modules/staff/staff.service.ts",
         "backend/src/modules/ventas/ventas.service.ts",
         "backend/src/prisma/prisma.module.ts",
         "backend/src/recipes/recipes.service.ts",
@@ -810,6 +836,7 @@
         "backend/src/modules/personal/personal.controller.ts",
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
+        "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts",
         "backend/src/recipes/recipes.controller.ts",
         "backend/src/users/users.controller.ts"
@@ -1018,6 +1045,23 @@
       "dependencies": [
         {
           "dynamic": false,
+          "module": "../shared/audit/audit.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
           "module": "./events.controller",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
@@ -1058,6 +1102,87 @@
       "valid": true
     },
     {
+      "source": "backend/src/shared/audit/audit.module.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./audit.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/events/events.module.ts",
+        "backend/src/ingredients/ingredients.module.ts",
+        "backend/src/modules/caja/caja.module.ts",
+        "backend/src/modules/clientes/clientes.module.ts",
+        "backend/src/modules/compras/compras.module.ts",
+        "backend/src/modules/configuracion/configuracion.module.ts",
+        "backend/src/modules/gastos/gastos.module.ts",
+        "backend/src/modules/inventario/inventario.module.ts",
+        "backend/src/modules/personal/personal.module.ts",
+        "backend/src/modules/productos/productos.module.ts",
+        "backend/src/modules/proveedores/proveedores.module.ts",
+        "backend/src/modules/staff/staff.module.ts",
+        "backend/src/modules/ventas/ventas.module.ts",
+        "backend/src/recipes/recipes.module.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/shared/audit/audit.service.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../prisma/prisma.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/prisma/prisma.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/shared/audit/audit.module.ts",
+        "backend/src/events/events.service.ts",
+        "backend/src/ingredients/ingredients.service.ts",
+        "backend/src/modules/caja/caja.service.ts",
+        "backend/src/modules/clientes/clientes.service.ts",
+        "backend/src/modules/compras/compras.service.ts",
+        "backend/src/modules/configuracion/configuracion.service.ts",
+        "backend/src/modules/gastos/gastos.service.ts",
+        "backend/src/modules/inventario/inventario.service.ts",
+        "backend/src/modules/personal/personal.service.ts",
+        "backend/src/modules/productos/productos.service.ts",
+        "backend/src/modules/proveedores/proveedores.service.ts",
+        "backend/src/modules/staff/staff.service.ts",
+        "backend/src/modules/ventas/ventas.service.ts",
+        "backend/src/recipes/recipes.service.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "backend/src/events/events.controller.ts",
       "dependencies": [
         {
@@ -1070,6 +1195,41 @@
             "import"
           ],
           "resolved": "backend/src/auth/guards/jwt-auth.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../auth/interfaces/authenticated-user.interface",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "type-only",
+            "import"
+          ],
+          "resolved": "backend/src/auth/interfaces/authenticated-user.interface.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../common/decorators/current-user.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/common/decorators/current-user.decorator.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -1186,6 +1346,7 @@
         "backend/src/modules/personal/personal.controller.ts",
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
+        "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts",
         "backend/src/recipes/recipes.controller.ts",
         "backend/src/users/users.controller.ts"
@@ -1244,6 +1405,7 @@
         "backend/src/modules/personal/personal.controller.ts",
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
+        "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts",
         "backend/src/recipes/recipes.controller.ts",
         "backend/src/users/users.controller.ts"
@@ -1312,6 +1474,23 @@
         },
         {
           "dynamic": false,
+          "module": "../shared/audit/audit.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
           "module": "./dto/create-event.dto",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
@@ -1355,6 +1534,23 @@
     {
       "source": "backend/src/ingredients/ingredients.module.ts",
       "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../shared/audit/audit.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
         {
           "dynamic": false,
           "module": "./ingredients.controller",
@@ -1409,6 +1605,41 @@
             "import"
           ],
           "resolved": "backend/src/auth/guards/jwt-auth.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../auth/interfaces/authenticated-user.interface",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "type-only",
+            "import"
+          ],
+          "resolved": "backend/src/auth/interfaces/authenticated-user.interface.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../common/decorators/current-user.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/common/decorators/current-user.decorator.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -1560,6 +1791,23 @@
             "import"
           ],
           "resolved": "backend/src/prisma/prisma.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../shared/audit/audit.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.service.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -1860,79 +2108,6 @@
       ],
       "dependents": [
         "backend/src/app.module.ts"
-      ],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "backend/src/shared/audit/audit.module.ts",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "./audit.service",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": [
-            "local",
-            "import"
-          ],
-          "resolved": "backend/src/shared/audit/audit.service.ts",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
-      ],
-      "dependents": [
-        "backend/src/modules/caja/caja.module.ts",
-        "backend/src/modules/clientes/clientes.module.ts",
-        "backend/src/modules/compras/compras.module.ts",
-        "backend/src/modules/configuracion/configuracion.module.ts",
-        "backend/src/modules/gastos/gastos.module.ts",
-        "backend/src/modules/inventario/inventario.module.ts",
-        "backend/src/modules/personal/personal.module.ts",
-        "backend/src/modules/productos/productos.module.ts",
-        "backend/src/modules/proveedores/proveedores.module.ts",
-        "backend/src/modules/ventas/ventas.module.ts"
-      ],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "backend/src/shared/audit/audit.service.ts",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "../../prisma/prisma.service",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": [
-            "local",
-            "import"
-          ],
-          "resolved": "backend/src/prisma/prisma.service.ts",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
-      ],
-      "dependents": [
-        "backend/src/shared/audit/audit.module.ts",
-        "backend/src/modules/caja/caja.service.ts",
-        "backend/src/modules/clientes/clientes.service.ts",
-        "backend/src/modules/compras/compras.service.ts",
-        "backend/src/modules/configuracion/configuracion.service.ts",
-        "backend/src/modules/gastos/gastos.service.ts",
-        "backend/src/modules/inventario/inventario.service.ts",
-        "backend/src/modules/personal/personal.service.ts",
-        "backend/src/modules/productos/productos.service.ts",
-        "backend/src/modules/proveedores/proveedores.service.ts",
-        "backend/src/modules/ventas/ventas.service.ts"
       ],
       "orphan": false,
       "valid": true
@@ -4674,6 +4849,332 @@
       "valid": true
     },
     {
+      "source": "backend/src/modules/staff/staff.module.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../shared/audit/audit.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./staff.controller",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/staff.controller.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./staff.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/staff.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/app.module.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/staff/staff.controller.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../auth/guards/jwt-auth.guard",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/auth/guards/jwt-auth.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../../auth/interfaces/authenticated-user.interface",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "type-only",
+            "import"
+          ],
+          "resolved": "backend/src/auth/interfaces/authenticated-user.interface.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../../common/decorators/current-user.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/common/decorators/current-user.decorator.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../../common/decorators/roles.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/common/decorators/roles.decorator.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../../common/guards/roles.guard",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/common/guards/roles.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/create-staff.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/dto/create-staff.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/update-staff.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/dto/update-staff.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./staff.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/staff.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/modules/staff/staff.module.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/staff/dto/create-staff.dto.ts",
+      "dependencies": [],
+      "dependents": [
+        "backend/src/modules/staff/staff.controller.ts",
+        "backend/src/modules/staff/dto/update-staff.dto.ts",
+        "backend/src/modules/staff/staff.service.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/staff/dto/update-staff.dto.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./create-staff.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/dto/create-staff.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/modules/staff/staff.controller.ts",
+        "backend/src/modules/staff/staff.service.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/staff/staff.service.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../prisma/prisma.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/prisma/prisma.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../../shared/audit/audit.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/create-staff.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/dto/create-staff.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/update-staff.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/staff/dto/update-staff.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/modules/staff/staff.module.ts",
+        "backend/src/modules/staff/staff.controller.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "backend/src/modules/ventas/ventas.module.ts",
       "dependencies": [
         {
@@ -4995,6 +5496,23 @@
       "dependencies": [
         {
           "dynamic": false,
+          "module": "../shared/audit/audit.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
           "module": "./recipes.controller",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
@@ -5047,6 +5565,41 @@
             "import"
           ],
           "resolved": "backend/src/auth/guards/jwt-auth.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../auth/interfaces/authenticated-user.interface",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "type-only",
+            "import"
+          ],
+          "resolved": "backend/src/auth/interfaces/authenticated-user.interface.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../common/decorators/current-user.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/common/decorators/current-user.decorator.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -5242,6 +5795,23 @@
             "import"
           ],
           "resolved": "backend/src/prisma/prisma.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../shared/audit/audit.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.service.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -5499,8 +6069,8 @@
     "warn": 0,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 98,
-    "totalDependenciesCruised": 257,
+    "totalCruised": 103,
+    "totalDependenciesCruised": 286,
     "optionsUsed": {
       "baseDir": "C:\\ANTIGRAVITY PROYECTOS\\erp-distribuidora",
       "combinedDependencies": false,

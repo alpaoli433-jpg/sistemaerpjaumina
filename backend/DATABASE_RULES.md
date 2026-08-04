@@ -30,6 +30,11 @@ npx prisma db seed       # 27 insumos, 12 recetas, admin, + dataset de distribui
 npx prisma studio        # explorador visual
 ```
 
+Con `NODE_ENV=production` (Render), `prisma db seed` exige `ADMIN_SEED_PASSWORD` en el
+entorno y falla si falta — evita sembrar el Admin con la contraseña por defecto de dev
+(`Admin123!`) fuera de una máquina local. Re-correr el seed con esa variable seteada
+también rota el hash del Admin ya existente (el `upsert` actualiza `password`).
+
 Usamos `db push` (no `migrate dev`) porque la base nunca tuvo historial de
 migraciones — pasarse a `migrate dev` ahora pediría resetearla.
 

@@ -632,10 +632,26 @@ async function main() {
   }
   console.log(`  ${STAFF.length} miembros de staff creados.`);
 
-  const adminPassword = await bcrypt.hash('Admin123!', SALT_ROUNDS);
+  // Fuera de entornos locales (NODE_ENV=production, como en Render) no se permite
+  // sembrar el Admin con la contraseña por defecto — hay que pasar una propia vía
+  // ADMIN_SEED_PASSWORD. Ver backend/DATABASE_RULES.md.
+  const isProduction = process.env.NODE_ENV === 'production';
+  const adminPasswordPlain = process.env.ADMIN_SEED_PASSWORD;
+  if (isProduction && !adminPasswordPlain) {
+    throw new Error(
+      'ADMIN_SEED_PASSWORD es obligatoria en producción (NODE_ENV=production) — ' +
+        'no se permite sembrar el usuario Admin con la contraseña por defecto fuera de un entorno local.',
+    );
+  }
+  if (!adminPasswordPlain) {
+    console.warn(
+      '  ⚠ ADMIN_SEED_PASSWORD no definida — usando la contraseña por defecto de dev (Admin123!). No usar en producción.',
+    );
+  }
+  const adminPassword = await bcrypt.hash(adminPasswordPlain ?? 'Admin123!', SALT_ROUNDS);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@cocteleriapremium.com' },
-    update: {},
+    update: { password: adminPassword },
     create: {
       email: 'admin@cocteleriapremium.com',
       password: adminPassword,
@@ -643,7 +659,9 @@ async function main() {
       role: 'ADMIN',
     },
   });
-  console.log('  Usuario Admin creado (admin@cocteleriapremium.com / Admin123!).');
+  console.log(
+    `  Usuario Admin creado/actualizado (admin@cocteleriapremium.com / ${adminPasswordPlain ? '<definida por ADMIN_SEED_PASSWORD>' : 'Admin123!'}).`,
+  );
 
   for (const event of EVENTS) {
     const { recipeNames, staffNames, ...eventData } = event;

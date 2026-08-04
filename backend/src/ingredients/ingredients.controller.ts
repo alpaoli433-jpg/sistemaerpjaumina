@@ -12,6 +12,8 @@ import { Role } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import type { AuthenticatedUser } from '../auth/interfaces/authenticated-user.interface';
 import { IngredientsService } from './ingredients.service';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
@@ -23,8 +25,11 @@ export class IngredientsController {
 
   @Roles(Role.ADMIN, Role.COORDINADOR)
   @Post()
-  create(@Body() dto: CreateIngredientDto) {
-    return this.ingredientsService.create(dto);
+  create(
+    @Body() dto: CreateIngredientDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.ingredientsService.create(dto, user.id);
   }
 
   // Cualquier rol autenticado puede consultar stock (ADMIN, COORDINADOR, BARTENDER)
@@ -40,13 +45,17 @@ export class IngredientsController {
 
   @Roles(Role.ADMIN, Role.COORDINADOR)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateIngredientDto) {
-    return this.ingredientsService.update(id, dto);
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateIngredientDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    return this.ingredientsService.update(id, dto, user.id);
   }
 
   @Roles(Role.ADMIN)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ingredientsService.remove(id);
+  remove(@Param('id') id: string, @CurrentUser() user: AuthenticatedUser) {
+    return this.ingredientsService.remove(id, user.id);
   }
 }

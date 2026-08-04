@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CalendarDays, Plus } from 'lucide-react';
 import { useAuth } from '@/lib/auth-context';
-import { createEvent, getEvents, getRecipes } from '@/lib/api';
+import { createEvent, getEvents, getRecipes, getStaff } from '@/lib/api';
 import { formatGuaranies } from '@/lib/format';
 import { Modal } from '@/components/ui/Modal';
 import { Field, inputClass } from '@/components/ui/Field';
@@ -44,6 +44,7 @@ export default function EventosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState(DEFAULT_FORM);
   const [recipeIds, setRecipeIds] = useState<string[]>([]);
+  const [staffIds, setStaffIds] = useState<string[]>([]);
 
   const { data: eventos, isLoading } = useQuery({
     queryKey: ['events'],
@@ -54,6 +55,11 @@ export default function EventosPage() {
     queryKey: ['recipes'],
     queryFn: getRecipes,
   });
+  const { data: staff } = useQuery({
+    queryKey: ['staff'],
+    queryFn: () => getStaff(token!),
+    enabled: !!token,
+  });
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -61,6 +67,7 @@ export default function EventosPage() {
         ...form,
         clientPhone: form.clientPhone || undefined,
         recipeIds: recipeIds.length > 0 ? recipeIds : undefined,
+        staffIds: staffIds.length > 0 ? staffIds : undefined,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['events'] });
@@ -68,11 +75,16 @@ export default function EventosPage() {
       setIsModalOpen(false);
       setForm(DEFAULT_FORM);
       setRecipeIds([]);
+      setStaffIds([]);
     },
   });
 
   function toggleRecipe(id: string) {
     setRecipeIds((prev) => (prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id]));
+  }
+
+  function toggleStaff(id: string) {
+    setStaffIds((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
   }
 
   function handleSubmit(event: FormEvent) {
@@ -110,6 +122,7 @@ export default function EventosPage() {
                   <th className="px-5 py-3 font-medium">Evento</th>
                   <th className="px-5 py-3 font-medium">Fecha</th>
                   <th className="px-5 py-3 font-medium">Invitados</th>
+                  <th className="px-5 py-3 font-medium">Personal</th>
                   <th className="px-5 py-3 font-medium">Estado</th>
                   <th className="px-5 py-3 text-right font-medium">Total</th>
                 </tr>
@@ -131,6 +144,11 @@ export default function EventosPage() {
                       })}
                     </td>
                     <td className="px-5 py-3 text-anthracite-soft">{evento.guestsCount}</td>
+                    <td className="px-5 py-3 text-anthracite-soft">
+                      {evento.staff.length > 0
+                        ? evento.staff.map((s) => s.staff.name).join(', ')
+                        : '—'}
+                    </td>
                     <td className="px-5 py-3">
                       <span
                         className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_TONE[evento.status] ?? 'bg-paper-muted text-anthracite-soft'}`}
@@ -257,6 +275,28 @@ export default function EventosPage() {
                     }`}
                   >
                     {r.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {staff && staff.length > 0 && (
+            <div>
+              <span className="text-sm font-medium text-anthracite">Personal asignado (opcional)</span>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {staff.map((s) => (
+                  <button
+                    type="button"
+                    key={s.id}
+                    onClick={() => toggleStaff(s.id)}
+                    className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                      staffIds.includes(s.id)
+                        ? 'border-champagne-gold bg-champagne-gold/10 text-champagne-dark'
+                        : 'border-anthracite/15 text-anthracite-soft hover:text-anthracite'
+                    }`}
+                  >
+                    {s.name} · {s.role}
                   </button>
                 ))}
               </div>

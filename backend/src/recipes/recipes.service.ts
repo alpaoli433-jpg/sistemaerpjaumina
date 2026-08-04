@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { AuditService } from '../shared/audit/audit.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 
@@ -9,12 +10,15 @@ const RECIPE_INCLUDE = {
 
 @Injectable()
 export class RecipesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly audit: AuditService,
+  ) {}
 
-  create(dto: CreateRecipeDto) {
+  async create(dto: CreateRecipeDto, userId: string) {
     const { ingredients, ...recipe } = dto;
 
-    return this.prisma.recipe.create({
+    const created = await this.prisma.recipe.create({
       data: {
         ...recipe,
         ingredients: {
@@ -26,6 +30,13 @@ export class RecipesService {
       },
       include: RECIPE_INCLUDE,
     });
+    await this.audit.log({
+      userId,
+      action: 'CREATE_RECIPE',
+      entity: 'Recipe',
+      details: `Creó la receta: ${created.name}.`,
+    });
+    return created;
   }
 
   findAll() {
@@ -46,11 +57,11 @@ export class RecipesService {
     return recipe;
   }
 
-  async update(id: string, dto: UpdateRecipeDto) {
+  async update(id: string, dto: UpdateRecipeDto, userId: string) {
     await this.findOne(id);
     const { ingredients, ...recipe } = dto;
 
-    return this.prisma.recipe.update({
+    const updated = await this.prisma.recipe.update({
       where: { id },
       data: {
         ...recipe,
@@ -66,10 +77,24 @@ export class RecipesService {
       },
       include: RECIPE_INCLUDE,
     });
+    await this.audit.log({
+      userId,
+      action: 'UPDATE_RECIPE',
+      entity: 'Recipe',
+      details: `Actualizó la receta: ${updated.name}.`,
+    });
+    return updated;
   }
 
-  async remove(id: string) {
-    await this.findOne(id);
-    return this.prisma.recipe.delete({ where: { id } });
+  async remove(id: string, userId: string) {
+    const recipe = await this.findOne(id);
+    await this.prisma.recipe.delete({ where: { id } });
+    await this.audit.log({
+      userId,
+      action: 'DELETE_RECIPE',
+      entity: 'Recipe',
+      details: `Eliminó la receta: ${recipe.name}.`,
+    });
+    return { id };
   }
 }

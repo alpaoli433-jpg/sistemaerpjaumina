@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { AuditService } from '../shared/audit/audit.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 
@@ -10,12 +11,15 @@ const EVENT_INCLUDE = {
 
 @Injectable()
 export class EventsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly audit: AuditService,
+  ) {}
 
-  create(dto: CreateEventDto) {
+  async create(dto: CreateEventDto, userId: string) {
     const { recipeIds, staffIds, eventDate, ...event } = dto;
 
-    return this.prisma.event.create({
+    const created = await this.prisma.event.create({
       data: {
         ...event,
         eventDate: new Date(eventDate),
@@ -28,6 +32,13 @@ export class EventsService {
       },
       include: EVENT_INCLUDE,
     });
+    await this.audit.log({
+      userId,
+      action: 'CREATE_EVENT',
+      entity: 'Event',
+      details: `Creó el evento: ${created.title}.`,
+    });
+    return created;
   }
 
   findAll() {
@@ -48,11 +59,11 @@ export class EventsService {
     return event;
   }
 
-  async update(id: string, dto: UpdateEventDto) {
+  async update(id: string, dto: UpdateEventDto, userId: string) {
     await this.findOne(id);
     const { recipeIds, staffIds, eventDate, ...event } = dto;
 
-    return this.prisma.event.update({
+    const updated = await this.prisma.event.update({
       where: { id },
       data: {
         ...event,
@@ -72,10 +83,24 @@ export class EventsService {
       },
       include: EVENT_INCLUDE,
     });
+    await this.audit.log({
+      userId,
+      action: 'UPDATE_EVENT',
+      entity: 'Event',
+      details: `Actualizó el evento: ${updated.title}.`,
+    });
+    return updated;
   }
 
-  async remove(id: string) {
-    await this.findOne(id);
-    return this.prisma.event.delete({ where: { id } });
+  async remove(id: string, userId: string) {
+    const event = await this.findOne(id);
+    await this.prisma.event.delete({ where: { id } });
+    await this.audit.log({
+      userId,
+      action: 'DELETE_EVENT',
+      entity: 'Event',
+      details: `Eliminó el evento: ${event.title}.`,
+    });
+    return { id };
   }
 }

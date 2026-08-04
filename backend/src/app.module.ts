@@ -19,6 +19,7 @@ import { GastosModule } from './modules/gastos/gastos.module';
 import { PersonalModule } from './modules/personal/personal.module';
 import { AuditoriaModule } from './modules/auditoria/auditoria.module';
 import { ConfiguracionModule } from './modules/configuracion/configuracion.module';
+import { StaffModule } from './modules/staff/staff.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ConfiguracionModule } from './modules/configuracion/configuracion.modul
     PersonalModule,
     AuditoriaModule,
     ConfiguracionModule,
+    StaffModule,
   ],
   controllers: [AppController],
   providers: [AppService],

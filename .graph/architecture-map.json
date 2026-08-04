@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-04T14:49:05.789Z",
+  "generatedAt": "2026-08-04T15:28:58.727Z",
   "howToRegenerate": "npm run graph:generate (desde la raíz del repo)",
   "note": "Mapa agrupado por carpeta (no por archivo individual) para lectura rápida. Los dumps completos archivo-por-archivo están en architecture-map.{backend,frontend}.json.",
   "backend": {
     "root": "backend/src",
-    "totalFiles": 98,
-    "totalGroups": 41,
+    "totalFiles": 103,
+    "totalGroups": 43,
     "modules": {
       "backend/src": {
         "fileCount": 5,
@@ -31,6 +31,7 @@
           "backend/src/modules/personal",
           "backend/src/modules/productos",
           "backend/src/modules/proveedores",
+          "backend/src/modules/staff",
           "backend/src/modules/ventas",
           "backend/src/prisma",
           "backend/src/recipes",
@@ -130,10 +131,12 @@
         ],
         "dependsOn": [
           "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
           "backend/src/common/decorators",
           "backend/src/common/guards",
           "backend/src/events/dto",
-          "backend/src/prisma"
+          "backend/src/prisma",
+          "backend/src/shared/audit"
         ]
       },
       "backend/src/events/dto": {
@@ -153,10 +156,12 @@
         ],
         "dependsOn": [
           "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
           "backend/src/common/decorators",
           "backend/src/common/guards",
           "backend/src/ingredients/dto",
-          "backend/src/prisma"
+          "backend/src/prisma",
+          "backend/src/shared/audit"
         ]
       },
       "backend/src/ingredients/dto": {
@@ -413,6 +418,31 @@
         ],
         "dependsOn": []
       },
+      "backend/src/modules/staff": {
+        "fileCount": 3,
+        "files": [
+          "staff.controller.ts",
+          "staff.module.ts",
+          "staff.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/staff/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/staff/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-staff.dto.ts",
+          "update-staff.dto.ts"
+        ],
+        "dependsOn": []
+      },
       "backend/src/modules/ventas": {
         "fileCount": 3,
         "files": [
@@ -455,10 +485,12 @@
         ],
         "dependsOn": [
           "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
           "backend/src/common/decorators",
           "backend/src/common/guards",
           "backend/src/prisma",
-          "backend/src/recipes/dto"
+          "backend/src/recipes/dto",
+          "backend/src/shared/audit"
         ]
       },
       "backend/src/recipes/dto": {
