@@ -20,4 +20,4 @@ services:
       - key: FRONTEND_URL
         sync: false # URL(es) del frontend desplegado, separadas por coma (ver main.ts) — se completa cuando el frontend tenga su propio deploy
       - key: ADMIN_SEED_PASSWORD
-        sync: false # solo la lee `npx prisma db seed` (no el servidor) — obligatoria acá porque NODE_ENV=production, ver backend/DATABASE_RULES.md
+        sync: false # solo la lee `npx prisma db seed` (no el servidor, no se corre en el deploy). OJO: ese script es destructivo contra la DB compartida — ver backend/DATABASE_RULES.md antes de correrlo a mano

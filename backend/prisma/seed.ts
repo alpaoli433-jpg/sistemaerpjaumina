@@ -9,6 +9,43 @@ const prisma = new PrismaClient({
 
 const SALT_ROUNDS = 10;
 
+// Frase que hay que setear a mano en SEED_CONFIRM_DESTRUCTIVE para permitir
+// que el seed corra. Ver backend/DATABASE_RULES.md: local y Render apuntan a
+// la misma Neon, así que no hay forma de distinguir "DB segura" por URL —
+// la única protección real es exigir una confirmación explícita.
+const DESTRUCTIVE_SEED_CONFIRMATION = 'wipe-this-database';
+
+/** Host de la DB sin credenciales, solo para mostrar en el mensaje de error. */
+export function safeDbHost(databaseUrl: string | undefined): string {
+  if (!databaseUrl) return '(DATABASE_URL no definida)';
+  try {
+    return new URL(databaseUrl).host;
+  } catch {
+    return '(DATABASE_URL con formato inválido)';
+  }
+}
+
+/**
+ * Aborta el seed salvo que se confirme explícitamente vía env var. `main()`
+ * arranca con una cadena de `deleteMany()` que borra las tablas de negocio
+ * completas (ver DATABASE_RULES.md) — sin este guard, correr
+ * `npx prisma db seed` a mano o por error contra la Neon compartida destruye
+ * cualquier dato real.
+ */
+export function assertSeedIsSafe(env: NodeJS.ProcessEnv = process.env): void {
+  if (env.SEED_CONFIRM_DESTRUCTIVE === DESTRUCTIVE_SEED_CONFIRMATION) return;
+
+  throw new Error(
+    'Seed abortado: este script borra TODAS las tablas de negocio ' +
+      '(event, recipe, ingredient, staff, producto, cliente, venta, compra, etc.) ' +
+      'antes de repoblar con datos demo — ver backend/DATABASE_RULES.md. ' +
+      `DB destino: ${safeDbHost(env.DATABASE_URL)}. ` +
+      'Si estás seguro de querer wipear esa base (solo DB nueva/vacía, nunca la ' +
+      'compartida con Render), volvé a correrlo con ' +
+      `SEED_CONFIRM_DESTRUCTIVE=${DESTRUCTIVE_SEED_CONFIRMATION}`,
+  );
+}
+
 // Margen aplicado sobre el costo del escandallo para obtener el precio sugerido.
 const SUGGESTED_PRICE_MARKUP = 4.5;
 const PRICE_ROUNDING = 500; // Redondeo al ₲500 más cercano
@@ -561,6 +598,8 @@ const EMPLEADOS: Array<{
 ];
 
 async function main() {
+  assertSeedIsSafe();
+
   console.log('Seeding database...');
 
   await prisma.eventDrink.deleteMany();
@@ -991,11 +1030,15 @@ async function main() {
   console.log('Seed completo.');
 }
 
-main()
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// Guardado detrás de `require.main === module` para que importar este archivo
+// desde un test (p. ej. para probar `assertSeedIsSafe`) no dispare el seed real.
+if (require.main === module) {
+  main()
+    .catch((error) => {
+      console.error(error);
+      process.exitCode = 1;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}

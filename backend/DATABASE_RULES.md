@@ -26,14 +26,35 @@ desde ahí con `env("DATABASE_URL")`). Adapter: `@prisma/adapter-pg` en
 ```bash
 npx prisma generate      # regenerar el cliente tras tocar schema.prisma
 npx prisma db push       # aplicar el schema a la DB (no versiona migraciones)
-npx prisma db seed       # 27 insumos, 12 recetas, admin, + dataset de distribuidora
+npx prisma db seed       # ⚠ DESTRUCTIVO, ver abajo — pide confirmación explícita
 npx prisma studio        # explorador visual
 ```
 
-Con `NODE_ENV=production` (Render), `prisma db seed` exige `ADMIN_SEED_PASSWORD` en el
-entorno y falla si falta — evita sembrar el Admin con la contraseña por defecto de dev
-(`Admin123!`) fuera de una máquina local. Re-correr el seed con esa variable seteada
-también rota el hash del Admin ya existente (el `upsert` actualiza `password`).
+**`prisma db seed` es destructivo.** `main()` arranca con una cadena de
+`deleteMany()` que borra por completo `event`, `recipe`, `ingredient`,
+`staff`, `auditLog`, `empleado`, `gasto`, `movimientoInventario`, `venta`,
+`compra`, `cajaSesion`, `producto`, `proveedor` y `cliente` antes de
+repoblarlas con el dataset demo hardcodeado. Solo el usuario Admin usa
+`upsert` (no se borra). El `.env` local y el servicio de Render **apuntan a
+la misma Neon** — correr `npx prisma db seed` tal cual contra esa DB destruye
+cualquier dato real que haya en esas tablas, no es seguro "para rotar la
+contraseña del Admin" ni para nada que no sea poblar una DB nueva/vacía.
+
+**Guard (`assertSeedIsSafe` en `prisma/seed.ts`):** como local y Render usan
+la misma URL, no hay forma de distinguir "DB segura" por `DATABASE_URL` —
+el script aborta siempre al arrancar (antes de cualquier `deleteMany`) salvo
+que se corra con `SEED_CONFIRM_DESTRUCTIVE=wipe-this-database` seteada a
+mano. El mensaje de error muestra el host de la DB destino para poder
+verificar antes de confirmar. Cubierto por `prisma/seed.spec.ts`.
+
+Con `NODE_ENV=production` (Render), el seed además exige `ADMIN_SEED_PASSWORD`
+en el entorno y falla si falta — pero eso solo gatea el hash del Admin, el
+guard de arriba es lo que protege el resto del script.
+
+**Para rotar solo la contraseña del Admin** en la DB compartida sin tocar el
+resto: un script aislado que haga únicamente
+`prisma.user.update({ where: { email: ... }, data: { password: hash } })`,
+nunca el seed completo.
 
 Usamos `db push` (no `migrate dev`) porque la base nunca tuvo historial de
 migraciones — pasarse a `migrate dev` ahora pediría resetearla.

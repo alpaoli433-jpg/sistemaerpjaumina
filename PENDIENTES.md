@@ -5,11 +5,12 @@
 
 ## Alta
 
-- [ ] Rotar la contraseña real del Admin en Neon/producción: el seed ya exige
-      `ADMIN_SEED_PASSWORD` cuando `NODE_ENV=production` (si falta, falla) y
-      el `upsert` ahora sí actualiza el hash en un usuario existente — falta
-      setear esa env var en Render y correr `npx prisma db seed` una vez
-      contra la DB de producción para reemplazar el hash de `Admin123!`.
+- [ ] Setear `ADMIN_SEED_PASSWORD` en el dashboard de Render (mismo valor
+      usado para rotar el hash localmente, o uno nuevo) — hoy solo está
+      documentada en `render.yaml`, no cargada. No requiere volver a correr
+      el seed: es solo para que quede consistente si alguna vez se necesita.
+      **Requiere acceso manual al dashboard de Render — no automatizable
+      desde acá.**
 
 ## Media
 
