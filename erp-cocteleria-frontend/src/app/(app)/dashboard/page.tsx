@@ -47,6 +47,17 @@ const PANEL_SKELETON = (
   </div>
 );
 
+function ErrorBanner({ message }: { message: string }) {
+  return (
+    <div className="rounded-xl border border-velvet-rose/30 bg-velvet-rose/5 p-4 text-sm text-velvet-rose">
+      {message}
+    </div>
+  );
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4001';
+const CONNECTION_ERROR_MESSAGE = `No se pudo conectar con el backend en ${API_URL}. Verificá que el servidor esté corriendo y que la sesión siga siendo válida.`;
+
 const ACTIVE_EVENT_STATUSES = new Set(['COTIZADO', 'CONFIRMADO', 'EN_CURSO']);
 const PROXIMOS_EVENTOS_LIMIT = 5;
 
@@ -61,7 +72,11 @@ export default function DashboardPage() {
 
   // Stock Crítico se pide directo a GET /ingredients (no vía /dashboard/summary)
   // para reflejar en tiempo real el recetario de coctelería.
-  const { data: ingredients, isLoading: isLoadingIngredients } = useQuery({
+  const {
+    data: ingredients,
+    isLoading: isLoadingIngredients,
+    isError: isErrorIngredients,
+  } = useQuery({
     queryKey: ['ingredients'],
     queryFn: () => getIngredients(token!),
     enabled: !!token,
@@ -84,7 +99,11 @@ export default function DashboardPage() {
   );
 
   // Próximos Eventos se pide directo a GET /events.
-  const { data: events, isLoading: isLoadingEvents } = useQuery({
+  const {
+    data: events,
+    isLoading: isLoadingEvents,
+    isError: isErrorEvents,
+  } = useQuery({
     queryKey: ['events'],
     queryFn: () => getEvents(token!),
     enabled: !!token,
@@ -115,12 +134,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {isError && (
-        <div className="surface-card rounded-2xl border-velvet-rose/30 p-5 text-sm text-velvet-rose">
-          No se pudo cargar el resumen del dashboard. Verificá que el backend esté
-          disponible en {process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4001'}.
-        </div>
-      )}
+      {isError && <ErrorBanner message={CONNECTION_ERROR_MESSAGE} />}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {isLoading || !data ? (
@@ -170,12 +184,20 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <SectionCard title="Stock Crítico">
-          {isLoadingIngredients ? PANEL_SKELETON : <StockCriticoPanel items={stockCritico} />}
+          {isLoadingIngredients ? (
+            PANEL_SKELETON
+          ) : isErrorIngredients ? (
+            <ErrorBanner message={CONNECTION_ERROR_MESSAGE} />
+          ) : (
+            <StockCriticoPanel items={stockCritico} />
+          )}
         </SectionCard>
 
         <SectionCard title="Próximos Eventos">
           {isLoadingEvents ? (
             PANEL_SKELETON
+          ) : isErrorEvents ? (
+            <ErrorBanner message={CONNECTION_ERROR_MESSAGE} />
           ) : (
             <ProximosEventosList events={proximosEventos} />
           )}
@@ -183,8 +205,10 @@ export default function DashboardPage() {
       </div>
 
       <SectionCard title="Actividad Reciente">
-        {isLoading || !data ? (
+        {isLoading ? (
           PANEL_SKELETON
+        ) : isError || !data ? (
+          <ErrorBanner message={CONNECTION_ERROR_MESSAGE} />
         ) : (
           <ActividadRecienteList entries={data.actividadReciente} />
         )}

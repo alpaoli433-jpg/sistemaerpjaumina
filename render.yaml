@@ -1,0 +1,21 @@
+services:
+  - name: jaumina-erp-backend
+    type: web
+    runtime: node
+    plan: free
+    region: virginia # más cercano a la base en Neon (sa-east-1) entre las regiones disponibles en Render
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: node dist/main.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATABASE_URL
+        sync: false # cadena de conexión de Neon — se carga a mano en el dashboard de Render, nunca en este repo
+      - key: JWT_SECRET
+        sync: false # secreto — se carga a mano en el dashboard de Render
+      - key: JWT_EXPIRES_IN
+        value: "8h"
+      - key: FRONTEND_URL
+        sync: false # URL(es) del frontend desplegado, separadas por coma (ver main.ts) — se completa cuando el frontend tenga su propio deploy

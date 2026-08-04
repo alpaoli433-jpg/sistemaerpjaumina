@@ -1,0 +1,361 @@
+strict digraph "dependency-cruiser output"{
+    rankdir="LR" splines="true" overlap="false" nodesep="0.16" ranksep="0.18" fontname="Helvetica-bold" fontsize="9" style="rounded,bold,filled" fillcolor="#ffffff" compound="true"
+    node [shape="box" style="rounded, filled" height="0.2" color="black" fillcolor="#ffffcc" fontcolor="black" fontname="Helvetica" fontsize="9"]
+    edge [arrowhead="normal" arrowsize="0.6" penwidth="2.0" color="#00000033" fontname="Helvetica" fontsize="9"]
+
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" "backend/src/app.controller.spec.ts" [label=<app.controller.spec.ts> tooltip="app.controller.spec.ts" URL="backend/src/app.controller.spec.ts" fillcolor="#ddfeff"] } }
+    "backend/src/app.controller.spec.ts" -> "backend/src/app.controller.ts"
+    "backend/src/app.controller.spec.ts" -> "backend/src/app.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" "backend/src/app.controller.ts" [label=<app.controller.ts> tooltip="app.controller.ts" URL="backend/src/app.controller.ts" fillcolor="#ddfeff"] } }
+    "backend/src/app.controller.ts" -> "backend/src/app.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" "backend/src/app.module.ts" [label=<app.module.ts> tooltip="app.module.ts" URL="backend/src/app.module.ts" fillcolor="#ddfeff"] } }
+    "backend/src/app.module.ts" -> "backend/src/app.controller.ts"
+    "backend/src/app.module.ts" -> "backend/src/app.service.ts"
+    "backend/src/app.module.ts" -> "backend/src/auth/auth.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/dashboard/dashboard.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/events/events.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/ingredients/ingredients.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/auditoria/auditoria.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/caja/caja.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/clientes/clientes.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/compras/compras.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/configuracion/configuracion.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/gastos/gastos.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/inventario/inventario.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/personal/personal.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/productos/productos.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/proveedores/proveedores.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/ventas/ventas.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/prisma/prisma.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/recipes/recipes.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/users/users.module.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" "backend/src/app.service.ts" [label=<app.service.ts> tooltip="app.service.ts" URL="backend/src/app.service.ts" fillcolor="#ddfeff"] } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" "backend/src/auth/auth.controller.ts" [label=<auth.controller.ts> tooltip="auth.controller.ts" URL="backend/src/auth/auth.controller.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/auth/auth.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/auth/auth.controller.ts" -> "backend/src/auth/auth.service.ts"
+    "backend/src/auth/auth.controller.ts" -> "backend/src/auth/dto/login.dto.ts"
+    "backend/src/auth/auth.controller.ts" -> "backend/src/auth/dto/register.dto.ts"
+    "backend/src/auth/auth.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/auth/auth.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" "backend/src/auth/auth.module.ts" [label=<auth.module.ts> tooltip="auth.module.ts" URL="backend/src/auth/auth.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/auth/auth.module.ts" -> "backend/src/auth/auth.controller.ts"
+    "backend/src/auth/auth.module.ts" -> "backend/src/auth/auth.service.ts"
+    "backend/src/auth/auth.module.ts" -> "backend/src/auth/strategies/jwt.strategy.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" "backend/src/auth/auth.service.ts" [label=<auth.service.ts> tooltip="auth.service.ts" URL="backend/src/auth/auth.service.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/auth/auth.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/auth/auth.service.ts" -> "backend/src/auth/dto/login.dto.ts"
+    "backend/src/auth/auth.service.ts" -> "backend/src/auth/dto/register.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" subgraph "cluster_backend/src/auth/dto" {label="dto" "backend/src/auth/dto/login.dto.ts" [label=<login.dto.ts> tooltip="login.dto.ts" URL="backend/src/auth/dto/login.dto.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" subgraph "cluster_backend/src/auth/dto" {label="dto" "backend/src/auth/dto/register.dto.ts" [label=<register.dto.ts> tooltip="register.dto.ts" URL="backend/src/auth/dto/register.dto.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" subgraph "cluster_backend/src/auth/guards" {label="guards" "backend/src/auth/guards/jwt-auth.guard.ts" [label=<jwt-auth.guard.ts> tooltip="jwt-auth.guard.ts" URL="backend/src/auth/guards/jwt-auth.guard.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/auth/guards/jwt-auth.guard.ts" -> "backend/src/common/decorators/public.decorator.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" subgraph "cluster_backend/src/auth/interfaces" {label="interfaces" "backend/src/auth/interfaces/authenticated-user.interface.ts" [label=<authenticated-user.interface.ts> tooltip="authenticated-user.interface.ts" URL="backend/src/auth/interfaces/authenticated-user.interface.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" subgraph "cluster_backend/src/auth/interfaces" {label="interfaces" "backend/src/auth/interfaces/jwt-payload.interface.ts" [label=<jwt-payload.interface.ts> tooltip="jwt-payload.interface.ts" URL="backend/src/auth/interfaces/jwt-payload.interface.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/auth" {label="auth" subgraph "cluster_backend/src/auth/strategies" {label="strategies" "backend/src/auth/strategies/jwt.strategy.ts" [label=<jwt.strategy.ts> tooltip="jwt.strategy.ts" URL="backend/src/auth/strategies/jwt.strategy.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/auth/strategies/jwt.strategy.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/auth/strategies/jwt.strategy.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts"
+    "backend/src/auth/strategies/jwt.strategy.ts" -> "backend/src/auth/interfaces/jwt-payload.interface.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/common" {label="common" subgraph "cluster_backend/src/common/decorators" {label="decorators" "backend/src/common/decorators/current-user.decorator.ts" [label=<current-user.decorator.ts> tooltip="current-user.decorator.ts" URL="backend/src/common/decorators/current-user.decorator.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/common/decorators/current-user.decorator.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/common" {label="common" subgraph "cluster_backend/src/common/decorators" {label="decorators" "backend/src/common/decorators/public.decorator.ts" [label=<public.decorator.ts> tooltip="public.decorator.ts" URL="backend/src/common/decorators/public.decorator.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/common" {label="common" subgraph "cluster_backend/src/common/decorators" {label="decorators" "backend/src/common/decorators/roles.decorator.ts" [label=<roles.decorator.ts> tooltip="roles.decorator.ts" URL="backend/src/common/decorators/roles.decorator.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/common" {label="common" subgraph "cluster_backend/src/common/guards" {label="guards" "backend/src/common/guards/roles.guard.ts" [label=<roles.guard.ts> tooltip="roles.guard.ts" URL="backend/src/common/guards/roles.guard.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/common/guards/roles.guard.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts"
+    "backend/src/common/guards/roles.guard.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/dashboard" {label="dashboard" "backend/src/dashboard/dashboard.controller.ts" [label=<dashboard.controller.ts> tooltip="dashboard.controller.ts" URL="backend/src/dashboard/dashboard.controller.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/dashboard/dashboard.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/dashboard/dashboard.controller.ts" -> "backend/src/dashboard/dashboard.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/dashboard" {label="dashboard" "backend/src/dashboard/dashboard.module.ts" [label=<dashboard.module.ts> tooltip="dashboard.module.ts" URL="backend/src/dashboard/dashboard.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/dashboard/dashboard.module.ts" -> "backend/src/dashboard/dashboard.controller.ts"
+    "backend/src/dashboard/dashboard.module.ts" -> "backend/src/dashboard/dashboard.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/dashboard" {label="dashboard" "backend/src/dashboard/dashboard.service.ts" [label=<dashboard.service.ts> tooltip="dashboard.service.ts" URL="backend/src/dashboard/dashboard.service.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/dashboard/dashboard.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/events" {label="events" subgraph "cluster_backend/src/events/dto" {label="dto" "backend/src/events/dto/create-event.dto.ts" [label=<create-event.dto.ts> tooltip="create-event.dto.ts" URL="backend/src/events/dto/create-event.dto.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/events" {label="events" subgraph "cluster_backend/src/events/dto" {label="dto" "backend/src/events/dto/update-event.dto.ts" [label=<update-event.dto.ts> tooltip="update-event.dto.ts" URL="backend/src/events/dto/update-event.dto.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/events/dto/update-event.dto.ts" -> "backend/src/events/dto/create-event.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/events" {label="events" "backend/src/events/events.controller.ts" [label=<events.controller.ts> tooltip="events.controller.ts" URL="backend/src/events/events.controller.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/events/events.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/events/events.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/events/events.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/events/events.controller.ts" -> "backend/src/events/dto/create-event.dto.ts"
+    "backend/src/events/events.controller.ts" -> "backend/src/events/dto/update-event.dto.ts"
+    "backend/src/events/events.controller.ts" -> "backend/src/events/events.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/events" {label="events" "backend/src/events/events.module.ts" [label=<events.module.ts> tooltip="events.module.ts" URL="backend/src/events/events.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/events/events.module.ts" -> "backend/src/events/events.controller.ts"
+    "backend/src/events/events.module.ts" -> "backend/src/events/events.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/events" {label="events" "backend/src/events/events.service.ts" [label=<events.service.ts> tooltip="events.service.ts" URL="backend/src/events/events.service.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/events/events.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/events/events.service.ts" -> "backend/src/events/dto/create-event.dto.ts"
+    "backend/src/events/events.service.ts" -> "backend/src/events/dto/update-event.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/ingredients" {label="ingredients" subgraph "cluster_backend/src/ingredients/dto" {label="dto" "backend/src/ingredients/dto/create-ingredient.dto.ts" [label=<create-ingredient.dto.ts> tooltip="create-ingredient.dto.ts" URL="backend/src/ingredients/dto/create-ingredient.dto.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/ingredients" {label="ingredients" subgraph "cluster_backend/src/ingredients/dto" {label="dto" "backend/src/ingredients/dto/update-ingredient.dto.ts" [label=<update-ingredient.dto.ts> tooltip="update-ingredient.dto.ts" URL="backend/src/ingredients/dto/update-ingredient.dto.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/ingredients/dto/update-ingredient.dto.ts" -> "backend/src/ingredients/dto/create-ingredient.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/ingredients" {label="ingredients" "backend/src/ingredients/ingredients.controller.ts" [label=<ingredients.controller.ts> tooltip="ingredients.controller.ts" URL="backend/src/ingredients/ingredients.controller.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/ingredients/ingredients.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/ingredients/ingredients.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/ingredients/ingredients.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/ingredients/ingredients.controller.ts" -> "backend/src/ingredients/dto/create-ingredient.dto.ts"
+    "backend/src/ingredients/ingredients.controller.ts" -> "backend/src/ingredients/dto/update-ingredient.dto.ts"
+    "backend/src/ingredients/ingredients.controller.ts" -> "backend/src/ingredients/ingredients.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/ingredients" {label="ingredients" "backend/src/ingredients/ingredients.module.ts" [label=<ingredients.module.ts> tooltip="ingredients.module.ts" URL="backend/src/ingredients/ingredients.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/ingredients/ingredients.module.ts" -> "backend/src/ingredients/ingredients.controller.ts"
+    "backend/src/ingredients/ingredients.module.ts" -> "backend/src/ingredients/ingredients.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/ingredients" {label="ingredients" "backend/src/ingredients/ingredients.service.ts" [label=<ingredients.service.ts> tooltip="ingredients.service.ts" URL="backend/src/ingredients/ingredients.service.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/ingredients/ingredients.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/ingredients/ingredients.service.ts" -> "backend/src/ingredients/dto/create-ingredient.dto.ts"
+    "backend/src/ingredients/ingredients.service.ts" -> "backend/src/ingredients/dto/update-ingredient.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" "backend/src/main.ts" [label=<main.ts> tooltip="main.ts" URL="backend/src/main.ts" fillcolor="#ddfeff"] } }
+    "backend/src/main.ts" -> "backend/src/app.module.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/auditoria" {label="auditoria" "backend/src/modules/auditoria/auditoria.controller.ts" [label=<auditoria.controller.ts> tooltip="auditoria.controller.ts" URL="backend/src/modules/auditoria/auditoria.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/auditoria/auditoria.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/auditoria/auditoria.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/auditoria/auditoria.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/auditoria/auditoria.controller.ts" -> "backend/src/modules/auditoria/auditoria.service.ts"
+    "backend/src/modules/auditoria/auditoria.controller.ts" -> "backend/src/modules/auditoria/dto/query-auditoria.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/auditoria" {label="auditoria" "backend/src/modules/auditoria/auditoria.module.ts" [label=<auditoria.module.ts> tooltip="auditoria.module.ts" URL="backend/src/modules/auditoria/auditoria.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/auditoria/auditoria.module.ts" -> "backend/src/modules/auditoria/auditoria.controller.ts"
+    "backend/src/modules/auditoria/auditoria.module.ts" -> "backend/src/modules/auditoria/auditoria.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/auditoria" {label="auditoria" "backend/src/modules/auditoria/auditoria.service.ts" [label=<auditoria.service.ts> tooltip="auditoria.service.ts" URL="backend/src/modules/auditoria/auditoria.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/auditoria/auditoria.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/auditoria/auditoria.service.ts" -> "backend/src/modules/auditoria/dto/query-auditoria.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/auditoria" {label="auditoria" subgraph "cluster_backend/src/modules/auditoria/dto" {label="dto" "backend/src/modules/auditoria/dto/query-auditoria.dto.ts" [label=<query-auditoria.dto.ts> tooltip="query-auditoria.dto.ts" URL="backend/src/modules/auditoria/dto/query-auditoria.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/caja" {label="caja" "backend/src/modules/caja/caja.controller.ts" [label=<caja.controller.ts> tooltip="caja.controller.ts" URL="backend/src/modules/caja/caja.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/modules/caja/caja.service.ts"
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/modules/caja/dto/abrir-caja.dto.ts"
+    "backend/src/modules/caja/caja.controller.ts" -> "backend/src/modules/caja/dto/cerrar-caja.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/caja" {label="caja" "backend/src/modules/caja/caja.module.ts" [label=<caja.module.ts> tooltip="caja.module.ts" URL="backend/src/modules/caja/caja.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/caja/caja.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/caja/caja.module.ts" -> "backend/src/modules/caja/caja.controller.ts"
+    "backend/src/modules/caja/caja.module.ts" -> "backend/src/modules/caja/caja.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/caja" {label="caja" "backend/src/modules/caja/caja.service.ts" [label=<caja.service.ts> tooltip="caja.service.ts" URL="backend/src/modules/caja/caja.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/caja/caja.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/caja/caja.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/caja/caja.service.ts" -> "backend/src/modules/caja/dto/abrir-caja.dto.ts"
+    "backend/src/modules/caja/caja.service.ts" -> "backend/src/modules/caja/dto/cerrar-caja.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/caja" {label="caja" subgraph "cluster_backend/src/modules/caja/dto" {label="dto" "backend/src/modules/caja/dto/abrir-caja.dto.ts" [label=<abrir-caja.dto.ts> tooltip="abrir-caja.dto.ts" URL="backend/src/modules/caja/dto/abrir-caja.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/caja" {label="caja" subgraph "cluster_backend/src/modules/caja/dto" {label="dto" "backend/src/modules/caja/dto/cerrar-caja.dto.ts" [label=<cerrar-caja.dto.ts> tooltip="cerrar-caja.dto.ts" URL="backend/src/modules/caja/dto/cerrar-caja.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/clientes" {label="clientes" "backend/src/modules/clientes/clientes.controller.ts" [label=<clientes.controller.ts> tooltip="clientes.controller.ts" URL="backend/src/modules/clientes/clientes.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/modules/clientes/clientes.service.ts"
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/modules/clientes/dto/create-cliente.dto.ts"
+    "backend/src/modules/clientes/clientes.controller.ts" -> "backend/src/modules/clientes/dto/update-cliente.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/clientes" {label="clientes" "backend/src/modules/clientes/clientes.module.ts" [label=<clientes.module.ts> tooltip="clientes.module.ts" URL="backend/src/modules/clientes/clientes.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/clientes/clientes.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/clientes/clientes.module.ts" -> "backend/src/modules/clientes/clientes.controller.ts"
+    "backend/src/modules/clientes/clientes.module.ts" -> "backend/src/modules/clientes/clientes.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/clientes" {label="clientes" "backend/src/modules/clientes/clientes.service.ts" [label=<clientes.service.ts> tooltip="clientes.service.ts" URL="backend/src/modules/clientes/clientes.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/clientes/clientes.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/clientes/clientes.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/clientes/clientes.service.ts" -> "backend/src/modules/clientes/dto/create-cliente.dto.ts"
+    "backend/src/modules/clientes/clientes.service.ts" -> "backend/src/modules/clientes/dto/update-cliente.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/clientes" {label="clientes" subgraph "cluster_backend/src/modules/clientes/dto" {label="dto" "backend/src/modules/clientes/dto/create-cliente.dto.ts" [label=<create-cliente.dto.ts> tooltip="create-cliente.dto.ts" URL="backend/src/modules/clientes/dto/create-cliente.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/clientes" {label="clientes" subgraph "cluster_backend/src/modules/clientes/dto" {label="dto" "backend/src/modules/clientes/dto/update-cliente.dto.ts" [label=<update-cliente.dto.ts> tooltip="update-cliente.dto.ts" URL="backend/src/modules/clientes/dto/update-cliente.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/clientes/dto/update-cliente.dto.ts" -> "backend/src/modules/clientes/dto/create-cliente.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/compras" {label="compras" "backend/src/modules/compras/compras.controller.ts" [label=<compras.controller.ts> tooltip="compras.controller.ts" URL="backend/src/modules/compras/compras.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/modules/compras/compras.service.ts"
+    "backend/src/modules/compras/compras.controller.ts" -> "backend/src/modules/compras/dto/create-compra.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/compras" {label="compras" "backend/src/modules/compras/compras.module.ts" [label=<compras.module.ts> tooltip="compras.module.ts" URL="backend/src/modules/compras/compras.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/compras/compras.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/compras/compras.module.ts" -> "backend/src/modules/compras/compras.controller.ts"
+    "backend/src/modules/compras/compras.module.ts" -> "backend/src/modules/compras/compras.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/compras" {label="compras" "backend/src/modules/compras/compras.service.ts" [label=<compras.service.ts> tooltip="compras.service.ts" URL="backend/src/modules/compras/compras.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/compras/compras.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/compras/compras.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/compras/compras.service.ts" -> "backend/src/modules/compras/dto/create-compra.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/compras" {label="compras" subgraph "cluster_backend/src/modules/compras/dto" {label="dto" "backend/src/modules/compras/dto/compra-item.dto.ts" [label=<compra-item.dto.ts> tooltip="compra-item.dto.ts" URL="backend/src/modules/compras/dto/compra-item.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/compras" {label="compras" subgraph "cluster_backend/src/modules/compras/dto" {label="dto" "backend/src/modules/compras/dto/create-compra.dto.ts" [label=<create-compra.dto.ts> tooltip="create-compra.dto.ts" URL="backend/src/modules/compras/dto/create-compra.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/compras/dto/create-compra.dto.ts" -> "backend/src/modules/compras/dto/compra-item.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/configuracion" {label="configuracion" "backend/src/modules/configuracion/configuracion.controller.ts" [label=<configuracion.controller.ts> tooltip="configuracion.controller.ts" URL="backend/src/modules/configuracion/configuracion.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/modules/configuracion/configuracion.service.ts"
+    "backend/src/modules/configuracion/configuracion.controller.ts" -> "backend/src/modules/configuracion/dto/update-empresa.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/configuracion" {label="configuracion" "backend/src/modules/configuracion/configuracion.module.ts" [label=<configuracion.module.ts> tooltip="configuracion.module.ts" URL="backend/src/modules/configuracion/configuracion.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/configuracion/configuracion.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/configuracion/configuracion.module.ts" -> "backend/src/modules/configuracion/configuracion.controller.ts"
+    "backend/src/modules/configuracion/configuracion.module.ts" -> "backend/src/modules/configuracion/configuracion.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/configuracion" {label="configuracion" "backend/src/modules/configuracion/configuracion.service.ts" [label=<configuracion.service.ts> tooltip="configuracion.service.ts" URL="backend/src/modules/configuracion/configuracion.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/configuracion/configuracion.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/configuracion/configuracion.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/configuracion/configuracion.service.ts" -> "backend/src/modules/configuracion/dto/update-empresa.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/configuracion" {label="configuracion" subgraph "cluster_backend/src/modules/configuracion/dto" {label="dto" "backend/src/modules/configuracion/dto/update-empresa.dto.ts" [label=<update-empresa.dto.ts> tooltip="update-empresa.dto.ts" URL="backend/src/modules/configuracion/dto/update-empresa.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/gastos" {label="gastos" subgraph "cluster_backend/src/modules/gastos/dto" {label="dto" "backend/src/modules/gastos/dto/create-gasto.dto.ts" [label=<create-gasto.dto.ts> tooltip="create-gasto.dto.ts" URL="backend/src/modules/gastos/dto/create-gasto.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/gastos" {label="gastos" subgraph "cluster_backend/src/modules/gastos/dto" {label="dto" "backend/src/modules/gastos/dto/update-gasto.dto.ts" [label=<update-gasto.dto.ts> tooltip="update-gasto.dto.ts" URL="backend/src/modules/gastos/dto/update-gasto.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/gastos/dto/update-gasto.dto.ts" -> "backend/src/modules/gastos/dto/create-gasto.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/gastos" {label="gastos" "backend/src/modules/gastos/gastos.controller.ts" [label=<gastos.controller.ts> tooltip="gastos.controller.ts" URL="backend/src/modules/gastos/gastos.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/modules/gastos/dto/create-gasto.dto.ts"
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/modules/gastos/dto/update-gasto.dto.ts"
+    "backend/src/modules/gastos/gastos.controller.ts" -> "backend/src/modules/gastos/gastos.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/gastos" {label="gastos" "backend/src/modules/gastos/gastos.module.ts" [label=<gastos.module.ts> tooltip="gastos.module.ts" URL="backend/src/modules/gastos/gastos.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/gastos/gastos.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/gastos/gastos.module.ts" -> "backend/src/modules/gastos/gastos.controller.ts"
+    "backend/src/modules/gastos/gastos.module.ts" -> "backend/src/modules/gastos/gastos.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/gastos" {label="gastos" "backend/src/modules/gastos/gastos.service.ts" [label=<gastos.service.ts> tooltip="gastos.service.ts" URL="backend/src/modules/gastos/gastos.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/gastos/gastos.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/gastos/gastos.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/gastos/gastos.service.ts" -> "backend/src/modules/gastos/dto/create-gasto.dto.ts"
+    "backend/src/modules/gastos/gastos.service.ts" -> "backend/src/modules/gastos/dto/update-gasto.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/inventario" {label="inventario" subgraph "cluster_backend/src/modules/inventario/dto" {label="dto" "backend/src/modules/inventario/dto/create-movimiento.dto.ts" [label=<create-movimiento.dto.ts> tooltip="create-movimiento.dto.ts" URL="backend/src/modules/inventario/dto/create-movimiento.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/inventario" {label="inventario" "backend/src/modules/inventario/inventario.controller.ts" [label=<inventario.controller.ts> tooltip="inventario.controller.ts" URL="backend/src/modules/inventario/inventario.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/modules/inventario/dto/create-movimiento.dto.ts"
+    "backend/src/modules/inventario/inventario.controller.ts" -> "backend/src/modules/inventario/inventario.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/inventario" {label="inventario" "backend/src/modules/inventario/inventario.module.ts" [label=<inventario.module.ts> tooltip="inventario.module.ts" URL="backend/src/modules/inventario/inventario.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/inventario/inventario.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/inventario/inventario.module.ts" -> "backend/src/modules/inventario/inventario.controller.ts"
+    "backend/src/modules/inventario/inventario.module.ts" -> "backend/src/modules/inventario/inventario.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/inventario" {label="inventario" "backend/src/modules/inventario/inventario.service.ts" [label=<inventario.service.ts> tooltip="inventario.service.ts" URL="backend/src/modules/inventario/inventario.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/inventario/inventario.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/inventario/inventario.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/inventario/inventario.service.ts" -> "backend/src/modules/inventario/dto/create-movimiento.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/personal" {label="personal" subgraph "cluster_backend/src/modules/personal/dto" {label="dto" "backend/src/modules/personal/dto/create-empleado.dto.ts" [label=<create-empleado.dto.ts> tooltip="create-empleado.dto.ts" URL="backend/src/modules/personal/dto/create-empleado.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/personal" {label="personal" subgraph "cluster_backend/src/modules/personal/dto" {label="dto" "backend/src/modules/personal/dto/create-movimiento-empleado.dto.ts" [label=<create-movimiento-empleado.dto.ts> tooltip="create-movimiento-empleado.dto.ts" URL="backend/src/modules/personal/dto/create-movimiento-empleado.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/personal" {label="personal" subgraph "cluster_backend/src/modules/personal/dto" {label="dto" "backend/src/modules/personal/dto/update-empleado.dto.ts" [label=<update-empleado.dto.ts> tooltip="update-empleado.dto.ts" URL="backend/src/modules/personal/dto/update-empleado.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/personal/dto/update-empleado.dto.ts" -> "backend/src/modules/personal/dto/create-empleado.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/personal" {label="personal" "backend/src/modules/personal/personal.controller.ts" [label=<personal.controller.ts> tooltip="personal.controller.ts" URL="backend/src/modules/personal/personal.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/modules/personal/dto/create-empleado.dto.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/modules/personal/dto/create-movimiento-empleado.dto.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/modules/personal/dto/update-empleado.dto.ts"
+    "backend/src/modules/personal/personal.controller.ts" -> "backend/src/modules/personal/personal.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/personal" {label="personal" "backend/src/modules/personal/personal.module.ts" [label=<personal.module.ts> tooltip="personal.module.ts" URL="backend/src/modules/personal/personal.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/personal/personal.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/personal/personal.module.ts" -> "backend/src/modules/personal/personal.controller.ts"
+    "backend/src/modules/personal/personal.module.ts" -> "backend/src/modules/personal/personal.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/personal" {label="personal" "backend/src/modules/personal/personal.service.ts" [label=<personal.service.ts> tooltip="personal.service.ts" URL="backend/src/modules/personal/personal.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/personal/personal.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/personal/personal.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/personal/personal.service.ts" -> "backend/src/modules/personal/dto/create-empleado.dto.ts"
+    "backend/src/modules/personal/personal.service.ts" -> "backend/src/modules/personal/dto/create-movimiento-empleado.dto.ts"
+    "backend/src/modules/personal/personal.service.ts" -> "backend/src/modules/personal/dto/update-empleado.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/productos" {label="productos" subgraph "cluster_backend/src/modules/productos/dto" {label="dto" "backend/src/modules/productos/dto/create-producto.dto.ts" [label=<create-producto.dto.ts> tooltip="create-producto.dto.ts" URL="backend/src/modules/productos/dto/create-producto.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/productos" {label="productos" subgraph "cluster_backend/src/modules/productos/dto" {label="dto" "backend/src/modules/productos/dto/update-producto.dto.ts" [label=<update-producto.dto.ts> tooltip="update-producto.dto.ts" URL="backend/src/modules/productos/dto/update-producto.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/productos/dto/update-producto.dto.ts" -> "backend/src/modules/productos/dto/create-producto.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/productos" {label="productos" "backend/src/modules/productos/productos.controller.ts" [label=<productos.controller.ts> tooltip="productos.controller.ts" URL="backend/src/modules/productos/productos.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/modules/productos/dto/create-producto.dto.ts"
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/modules/productos/dto/update-producto.dto.ts"
+    "backend/src/modules/productos/productos.controller.ts" -> "backend/src/modules/productos/productos.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/productos" {label="productos" "backend/src/modules/productos/productos.module.ts" [label=<productos.module.ts> tooltip="productos.module.ts" URL="backend/src/modules/productos/productos.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/productos/productos.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/productos/productos.module.ts" -> "backend/src/modules/productos/productos.controller.ts"
+    "backend/src/modules/productos/productos.module.ts" -> "backend/src/modules/productos/productos.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/productos" {label="productos" "backend/src/modules/productos/productos.service.ts" [label=<productos.service.ts> tooltip="productos.service.ts" URL="backend/src/modules/productos/productos.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/productos/productos.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/productos/productos.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/productos/productos.service.ts" -> "backend/src/modules/productos/dto/create-producto.dto.ts"
+    "backend/src/modules/productos/productos.service.ts" -> "backend/src/modules/productos/dto/update-producto.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/proveedores" {label="proveedores" subgraph "cluster_backend/src/modules/proveedores/dto" {label="dto" "backend/src/modules/proveedores/dto/create-proveedor.dto.ts" [label=<create-proveedor.dto.ts> tooltip="create-proveedor.dto.ts" URL="backend/src/modules/proveedores/dto/create-proveedor.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/proveedores" {label="proveedores" subgraph "cluster_backend/src/modules/proveedores/dto" {label="dto" "backend/src/modules/proveedores/dto/update-proveedor.dto.ts" [label=<update-proveedor.dto.ts> tooltip="update-proveedor.dto.ts" URL="backend/src/modules/proveedores/dto/update-proveedor.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/proveedores/dto/update-proveedor.dto.ts" -> "backend/src/modules/proveedores/dto/create-proveedor.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/proveedores" {label="proveedores" "backend/src/modules/proveedores/proveedores.controller.ts" [label=<proveedores.controller.ts> tooltip="proveedores.controller.ts" URL="backend/src/modules/proveedores/proveedores.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/modules/proveedores/dto/create-proveedor.dto.ts"
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/modules/proveedores/dto/update-proveedor.dto.ts"
+    "backend/src/modules/proveedores/proveedores.controller.ts" -> "backend/src/modules/proveedores/proveedores.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/proveedores" {label="proveedores" "backend/src/modules/proveedores/proveedores.module.ts" [label=<proveedores.module.ts> tooltip="proveedores.module.ts" URL="backend/src/modules/proveedores/proveedores.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/proveedores/proveedores.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/proveedores/proveedores.module.ts" -> "backend/src/modules/proveedores/proveedores.controller.ts"
+    "backend/src/modules/proveedores/proveedores.module.ts" -> "backend/src/modules/proveedores/proveedores.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/proveedores" {label="proveedores" "backend/src/modules/proveedores/proveedores.service.ts" [label=<proveedores.service.ts> tooltip="proveedores.service.ts" URL="backend/src/modules/proveedores/proveedores.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/proveedores/proveedores.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/proveedores/proveedores.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/proveedores/proveedores.service.ts" -> "backend/src/modules/proveedores/dto/create-proveedor.dto.ts"
+    "backend/src/modules/proveedores/proveedores.service.ts" -> "backend/src/modules/proveedores/dto/update-proveedor.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/ventas" {label="ventas" subgraph "cluster_backend/src/modules/ventas/dto" {label="dto" "backend/src/modules/ventas/dto/create-venta.dto.ts" [label=<create-venta.dto.ts> tooltip="create-venta.dto.ts" URL="backend/src/modules/ventas/dto/create-venta.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/ventas/dto/create-venta.dto.ts" -> "backend/src/modules/ventas/dto/venta-item.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/ventas" {label="ventas" subgraph "cluster_backend/src/modules/ventas/dto" {label="dto" "backend/src/modules/ventas/dto/venta-item.dto.ts" [label=<venta-item.dto.ts> tooltip="venta-item.dto.ts" URL="backend/src/modules/ventas/dto/venta-item.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/ventas" {label="ventas" "backend/src/modules/ventas/ventas.controller.ts" [label=<ventas.controller.ts> tooltip="ventas.controller.ts" URL="backend/src/modules/ventas/ventas.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/modules/ventas/dto/create-venta.dto.ts"
+    "backend/src/modules/ventas/ventas.controller.ts" -> "backend/src/modules/ventas/ventas.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/ventas" {label="ventas" "backend/src/modules/ventas/ventas.module.ts" [label=<ventas.module.ts> tooltip="ventas.module.ts" URL="backend/src/modules/ventas/ventas.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/ventas/ventas.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/ventas/ventas.module.ts" -> "backend/src/modules/ventas/ventas.controller.ts"
+    "backend/src/modules/ventas/ventas.module.ts" -> "backend/src/modules/ventas/ventas.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/ventas" {label="ventas" "backend/src/modules/ventas/ventas.service.ts" [label=<ventas.service.ts> tooltip="ventas.service.ts" URL="backend/src/modules/ventas/ventas.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/ventas/ventas.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/modules/ventas/ventas.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/ventas/ventas.service.ts" -> "backend/src/modules/ventas/dto/create-venta.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/prisma" {label="prisma" "backend/src/prisma/prisma.module.ts" [label=<prisma.module.ts> tooltip="prisma.module.ts" URL="backend/src/prisma/prisma.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/prisma/prisma.module.ts" -> "backend/src/prisma/prisma.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/prisma" {label="prisma" "backend/src/prisma/prisma.service.ts" [label=<prisma.service.ts> tooltip="prisma.service.ts" URL="backend/src/prisma/prisma.service.ts" fillcolor="#ddfeff"] } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/recipes" {label="recipes" subgraph "cluster_backend/src/recipes/dto" {label="dto" "backend/src/recipes/dto/create-recipe.dto.ts" [label=<create-recipe.dto.ts> tooltip="create-recipe.dto.ts" URL="backend/src/recipes/dto/create-recipe.dto.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/recipes/dto/create-recipe.dto.ts" -> "backend/src/recipes/dto/recipe-ingredient.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/recipes" {label="recipes" subgraph "cluster_backend/src/recipes/dto" {label="dto" "backend/src/recipes/dto/recipe-ingredient.dto.ts" [label=<recipe-ingredient.dto.ts> tooltip="recipe-ingredient.dto.ts" URL="backend/src/recipes/dto/recipe-ingredient.dto.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/recipes" {label="recipes" subgraph "cluster_backend/src/recipes/dto" {label="dto" "backend/src/recipes/dto/update-recipe.dto.ts" [label=<update-recipe.dto.ts> tooltip="update-recipe.dto.ts" URL="backend/src/recipes/dto/update-recipe.dto.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/recipes/dto/update-recipe.dto.ts" -> "backend/src/recipes/dto/create-recipe.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/recipes" {label="recipes" "backend/src/recipes/recipes.controller.ts" [label=<recipes.controller.ts> tooltip="recipes.controller.ts" URL="backend/src/recipes/recipes.controller.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/common/decorators/public.decorator.ts"
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/recipes/dto/create-recipe.dto.ts"
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/recipes/dto/update-recipe.dto.ts"
+    "backend/src/recipes/recipes.controller.ts" -> "backend/src/recipes/recipes.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/recipes" {label="recipes" "backend/src/recipes/recipes.module.ts" [label=<recipes.module.ts> tooltip="recipes.module.ts" URL="backend/src/recipes/recipes.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/recipes/recipes.module.ts" -> "backend/src/recipes/recipes.controller.ts"
+    "backend/src/recipes/recipes.module.ts" -> "backend/src/recipes/recipes.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/recipes" {label="recipes" "backend/src/recipes/recipes.service.ts" [label=<recipes.service.ts> tooltip="recipes.service.ts" URL="backend/src/recipes/recipes.service.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/recipes/recipes.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    "backend/src/recipes/recipes.service.ts" -> "backend/src/recipes/dto/create-recipe.dto.ts"
+    "backend/src/recipes/recipes.service.ts" -> "backend/src/recipes/dto/update-recipe.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/shared" {label="shared" subgraph "cluster_backend/src/shared/audit" {label="audit" "backend/src/shared/audit/audit.module.ts" [label=<audit.module.ts> tooltip="audit.module.ts" URL="backend/src/shared/audit/audit.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/shared/audit/audit.module.ts" -> "backend/src/shared/audit/audit.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/shared" {label="shared" subgraph "cluster_backend/src/shared/audit" {label="audit" "backend/src/shared/audit/audit.service.ts" [label=<audit.service.ts> tooltip="audit.service.ts" URL="backend/src/shared/audit/audit.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/shared/audit/audit.service.ts" -> "backend/src/prisma/prisma.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/users" {label="users" subgraph "cluster_backend/src/users/dto" {label="dto" "backend/src/users/dto/update-user-role.dto.ts" [label=<update-user-role.dto.ts> tooltip="update-user-role.dto.ts" URL="backend/src/users/dto/update-user-role.dto.ts" fillcolor="#ddfeff"] } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/users" {label="users" "backend/src/users/users.controller.ts" [label=<users.controller.ts> tooltip="users.controller.ts" URL="backend/src/users/users.controller.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/users/users.controller.ts" -> "backend/src/auth/guards/jwt-auth.guard.ts"
+    "backend/src/users/users.controller.ts" -> "backend/src/common/decorators/roles.decorator.ts"
+    "backend/src/users/users.controller.ts" -> "backend/src/common/guards/roles.guard.ts"
+    "backend/src/users/users.controller.ts" -> "backend/src/users/dto/update-user-role.dto.ts"
+    "backend/src/users/users.controller.ts" -> "backend/src/users/users.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/users" {label="users" "backend/src/users/users.module.ts" [label=<users.module.ts> tooltip="users.module.ts" URL="backend/src/users/users.module.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/users/users.module.ts" -> "backend/src/users/users.controller.ts"
+    "backend/src/users/users.module.ts" -> "backend/src/users/users.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/users" {label="users" "backend/src/users/users.service.ts" [label=<users.service.ts> tooltip="users.service.ts" URL="backend/src/users/users.service.ts" fillcolor="#ddfeff"] } } }
+    "backend/src/users/users.service.ts" -> "backend/src/prisma/prisma.service.ts"
+}

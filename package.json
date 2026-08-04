@@ -1,0 +1,20 @@
+{
+  "name": "erp-distribuidora",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ja'umina ERP — herramientas de nivel de monorepo (backend/ y erp-cocteleria-frontend/ son proyectos npm independientes).",
+  "scripts": {
+    "graph:backend": "depcruise backend/src --config .dependency-cruiser.backend.cjs --output-type json > .graph/architecture-map.backend.json && depcruise backend/src --config .dependency-cruiser.backend.cjs --output-type dot > .graph/architecture-map.backend.dot",
+    "graph:frontend": "cd erp-cocteleria-frontend && depcruise src --config ../.dependency-cruiser.frontend.cjs --output-type json > ../.graph/architecture-map.frontend.json && depcruise src --config ../.dependency-cruiser.frontend.cjs --output-type dot > ../.graph/architecture-map.frontend.dot",
+    "graph:generate": "npm run graph:backend && npm run graph:frontend && node scripts/build-architecture-summary.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alpaoli433-jpg/sistemaerpjaumina.git"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "dependency-cruiser": "^18.1.1",
+    "typescript": "^5.9.3"
+  }
+}

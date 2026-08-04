@@ -161,6 +161,59 @@ Antes de cerrar una tarea verificar:
 - Explicar decisiones importantes.
 - Documentar cambios relevantes.
 - Evitar dependencias innecesarias.
+- Antes de leer archivos fuente para orientarte, consultar primero
+  `.graph/architecture-map.json` (ver §16). Después de crear o modificar un
+  módulo, correr `npm run graph:generate` para mantenerlo al día.
+
+## 16. Mapa de Arquitectura por Grafos
+
+El proyecto mantiene un mapeo automático de dependencias para poder navegar
+la arquitectura sin tener que abrir cada archivo fuente.
+
+### Herramienta
+
+`dependency-cruiser` instalado como devDependency en el `package.json` de
+la **raíz** del repo (`erp-distribuidora/`), que orquesta ambos proyectos
+(`backend/` y `erp-cocteleria-frontend/`, cada uno con su propio
+`package.json` y `node_modules`).
+
+### Comandos
+
+```bash
+npm run graph:backend    # solo backend/src -> .graph/architecture-map.backend.{json,dot}
+npm run graph:frontend   # solo erp-cocteleria-frontend/src -> .graph/architecture-map.frontend.{json,dot}
+npm run graph:generate   # ambos + resumen combinado .graph/architecture-map.json
+```
+
+### Archivos en `.graph/` (se versionan en git, no son build output descartable)
+
+- **`architecture-map.json`** — el que hay que leer primero. Resumen
+  agrupado por carpeta/módulo (no archivo por archivo): cantidad de
+  archivos por módulo y qué otros módulos usa cada uno. Generado por
+  `scripts/build-architecture-summary.cjs` a partir de los dos dumps de
+  abajo.
+- `architecture-map.backend.json` / `architecture-map.frontend.json` — dump
+  completo de dependency-cruiser, archivo por archivo (para cuando el
+  resumen no alcanza y hace falta el detalle exacto de una importación).
+- `architecture-map.backend.dot` / `architecture-map.frontend.dot` —
+  mismo grafo en formato Graphviz DOT (texto), por si se quiere renderizar
+  una imagen con `dot -Tsvg architecture-map.backend.dot -o graph.svg` (esta
+  máquina no tiene Graphviz instalado, así que no se generan `.svg`/`.png`
+  automáticamente).
+
+### Regla obligatoria
+
+**Cada vez que se crea o modifica un módulo** (nuevo módulo de NestJS en
+`backend/src/modules/`, nueva página/componente en el frontend, o cualquier
+cambio que altere qué archivo importa a qué otro), correr:
+
+```bash
+npm run graph:generate
+```
+
+desde la raíz del repo, y commitear los archivos actualizados de
+`.graph/` junto con el cambio de código. El objetivo es que
+`architecture-map.json` nunca quede desactualizado respecto al código real.
 
 ---
 

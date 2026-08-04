@@ -13,3 +13,6 @@ node_modules
 
 # Test coverage
 /coverage
+
+# Cache incremental de TypeScript (rutas absolutas locales, no portable)
+*.tsbuildinfo

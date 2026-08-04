@@ -2,6 +2,90 @@
 
 > Generado automáticamente. Última actualización: 2026-08-04.
 
+## 0l. render.yaml (Infra as Code del backend) + CLI de Render instalada (2026-08-04)
+
+- **`render.yaml`** en la raíz: define el web service `jaumina-erp-backend`
+  (`rootDir: backend`, `buildCommand: npm install && npx prisma generate &&
+  npm run build`, `startCommand: node dist/main.js`, `plan: free`,
+  `region: virginia`). Nota: el campo correcto del Blueprint spec de Render
+  es `rootDir`, no `rootDirectory` como se nombró en la conversación —
+  verificado contra la documentación oficial. `DATABASE_URL`, `JWT_SECRET` y
+  `FRONTEND_URL` quedaron con `sync: false` (se cargan a mano en el
+  dashboard de Render al crear el Blueprint, nunca en texto plano en el
+  repo). Validado parseando el YAML con `js-yaml` (ya presente como
+  dependencia transitiva, no se instaló nada nuevo).
+- **Render CLI** (`render-oss/cli` v2.22.0) instalada en
+  `C:\Users\alvar\bin\render.exe` (ya en PATH). Todavía **sin autenticar**
+  — falta `render login` (interactivo) o `RENDER_API_KEY`, que solo el
+  usuario puede generar desde su dashboard de Render. Sin esto no se puede
+  crear el servicio en Render ni conectar el MCP oficial
+  (`https://mcp.render.com/mcp`).
+- **Pendiente explícito**: el usuario todavía no decidió cómo autenticar
+  (correr los comandos él mismo con `!`, pasar la API key en el chat, o
+  postergar el MCP) — quedó pausado para resolver primero este `render.yaml`.
+
+## 0k. Migración de SQLite a PostgreSQL en la nube (Neon) (2026-08-04)
+
+Resuelve el punto pendiente desde la sección 5 (había quedado en SQLite por
+falta de Docker/Postgres local). Cambios:
+
+- `backend/prisma/schema.prisma`: `datasource db { provider = "postgresql" }`
+  — **sin** agregar `url = env("DATABASE_URL")` inline (a diferencia de lo
+  sugerido literalmente): la URL ya la resuelve `prisma.config.ts`
+  (`datasource.url: process.env["DATABASE_URL"]`), y duplicarla en el
+  schema es redundante en el flujo de configuración de Prisma 7. Si en
+  algún momento se saca `prisma.config.ts`, hay que agregar el `url` acá.
+- `backend/.env`: `DATABASE_URL` reemplazada por la cadena de Neon provista
+  por el usuario (host `ep-odd-queen-acouri0p-pooler.sa-east-1.aws.neon.tech`,
+  db `neondb`). Sigue gitignoreada (`backend/.gitignore` ya tenía `.env`).
+- `backend/src/prisma/prisma.service.ts` y `backend/prisma/seed.ts`:
+  `PrismaBetterSqlite3` → `PrismaPg` (`@prisma/adapter-pg`, ya estaba
+  instalado desde el arranque original del proyecto, nunca se desinstaló).
+- `npx prisma generate` + `npx prisma db push` (creó todas las tablas en
+  Neon, sin drift ni conflictos — la DB estaba vacía) + `npx prisma db seed`
+  (27 insumos, 12 recetas, usuario Admin, y el resto del dataset de
+  distribuidora de sesiones posteriores: proveedores, clientes, productos,
+  compras, ventas, gastos, caja, personal).
+
+**Verificado en caliente contra Neon** (no solo build): `npm run build`
+limpio, backend levantado y probado con curl — login real, `GET /recipes`
+devuelve las 12 recetas, `GET /dashboard/summary` calcula los KPIs
+correctamente desde datos que ya viven en Neon.
+
+**Nota**: `pg` tira un warning (no error) de deprecación sobre
+`sslmode=require` — en `pg-connection-string`/`pg` v9 ese modo va a pasar a
+significar `verify-full` (más estricto). Por ahora funciona sin problema;
+si se quiere silenciar el warning, cambiar la connection string a
+`uselibpqcompat=true&sslmode=require` (mantiene el comportamiento actual)
+o a `sslmode=verify-full` (más estricto, requiere que el certificado de
+Neon valide correctamente).
+
+## 0j. Mapa de arquitectura por grafos (2026-08-04)
+
+Se agregó `dependency-cruiser` en un `package.json` nuevo en la raíz del
+repo (antes no existía ninguno ahí — solo `backend/` y
+`erp-cocteleria-frontend/` tenían el suyo). Detalle completo de cómo usarlo
+en `JAUMINA_WORKSPACE_RULES.md §16`.
+
+**Problemas encontrados y resueltos en el camino:**
+1. `npm install typescript` por defecto instaló la v7, pero
+   dependency-cruiser 18.x solo soporta TypeScript `<7.0.0` — se pinneó a
+   `^5.9.3`.
+2. Pasar `tsConfig: { fileName: 'backend/tsconfig.json' }` desde la raíz
+   tiraba `TS18003: No inputs were found` — TypeScript resuelve el
+   `include` del tsconfig raro cuando el cwd de depcruise no coincide con
+   la carpeta del tsconfig. Solución: el backend no usa path aliases, así
+   que se le sacó el `tsConfig` a su config; el frontend sí los necesita
+   (`@/*`), así que su script hace `cd erp-cocteleria-frontend &&` antes de
+   correr depcruise, con `tsConfig: { fileName: 'tsconfig.json' }` (relativo
+   al nuevo cwd).
+
+**Pendiente / limitación conocida**: esta máquina no tiene Graphviz
+instalado, así que no se generan imágenes `.svg`/`.png` del grafo — solo
+`.dot` (texto) y `.json`. Si se quiere la imagen, instalar Graphviz y correr
+`dot -Tsvg .graph/architecture-map.backend.dot -o backend-graph.svg` (o
+frontend) a mano.
+
 ## 0i. Rediseño del Sidebar + Dashboard con endpoints directos (2026-08-04)
 
 Pedido explícito del usuario, enfocado 100% en frontend:

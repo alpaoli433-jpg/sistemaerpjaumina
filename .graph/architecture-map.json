@@ -1,0 +1,800 @@
+{
+  "generatedAt": "2026-08-04T11:33:20.814Z",
+  "howToRegenerate": "npm run graph:generate (desde la raíz del repo)",
+  "note": "Mapa agrupado por carpeta (no por archivo individual) para lectura rápida. Los dumps completos archivo-por-archivo están en architecture-map.{backend,frontend}.json.",
+  "backend": {
+    "root": "backend/src",
+    "totalFiles": 98,
+    "totalGroups": 41,
+    "modules": {
+      "backend/src": {
+        "fileCount": 5,
+        "files": [
+          "app.controller.spec.ts",
+          "app.controller.ts",
+          "app.module.ts",
+          "app.service.ts",
+          "main.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth",
+          "backend/src/dashboard",
+          "backend/src/events",
+          "backend/src/ingredients",
+          "backend/src/modules/auditoria",
+          "backend/src/modules/caja",
+          "backend/src/modules/clientes",
+          "backend/src/modules/compras",
+          "backend/src/modules/configuracion",
+          "backend/src/modules/gastos",
+          "backend/src/modules/inventario",
+          "backend/src/modules/personal",
+          "backend/src/modules/productos",
+          "backend/src/modules/proveedores",
+          "backend/src/modules/ventas",
+          "backend/src/prisma",
+          "backend/src/recipes",
+          "backend/src/users"
+        ]
+      },
+      "backend/src/auth": {
+        "fileCount": 3,
+        "files": [
+          "auth.controller.ts",
+          "auth.module.ts",
+          "auth.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/dto",
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/auth/strategies",
+          "backend/src/common/decorators",
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/auth/dto": {
+        "fileCount": 2,
+        "files": [
+          "login.dto.ts",
+          "register.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/auth/guards": {
+        "fileCount": 1,
+        "files": [
+          "jwt-auth.guard.ts"
+        ],
+        "dependsOn": [
+          "backend/src/common/decorators"
+        ]
+      },
+      "backend/src/auth/interfaces": {
+        "fileCount": 2,
+        "files": [
+          "authenticated-user.interface.ts",
+          "jwt-payload.interface.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/auth/strategies": {
+        "fileCount": 1,
+        "files": [
+          "jwt.strategy.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/interfaces",
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/common/decorators": {
+        "fileCount": 3,
+        "files": [
+          "current-user.decorator.ts",
+          "public.decorator.ts",
+          "roles.decorator.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/interfaces"
+        ]
+      },
+      "backend/src/common/guards": {
+        "fileCount": 1,
+        "files": [
+          "roles.guard.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators"
+        ]
+      },
+      "backend/src/dashboard": {
+        "fileCount": 3,
+        "files": [
+          "dashboard.controller.ts",
+          "dashboard.module.ts",
+          "dashboard.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/events": {
+        "fileCount": 3,
+        "files": [
+          "events.controller.ts",
+          "events.module.ts",
+          "events.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/events/dto",
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/events/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-event.dto.ts",
+          "update-event.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/ingredients": {
+        "fileCount": 3,
+        "files": [
+          "ingredients.controller.ts",
+          "ingredients.module.ts",
+          "ingredients.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/ingredients/dto",
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/ingredients/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-ingredient.dto.ts",
+          "update-ingredient.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/auditoria": {
+        "fileCount": 3,
+        "files": [
+          "auditoria.controller.ts",
+          "auditoria.module.ts",
+          "auditoria.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/auditoria/dto",
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/modules/auditoria/dto": {
+        "fileCount": 1,
+        "files": [
+          "query-auditoria.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/caja": {
+        "fileCount": 3,
+        "files": [
+          "caja.controller.ts",
+          "caja.module.ts",
+          "caja.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/caja/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/caja/dto": {
+        "fileCount": 2,
+        "files": [
+          "abrir-caja.dto.ts",
+          "cerrar-caja.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/clientes": {
+        "fileCount": 3,
+        "files": [
+          "clientes.controller.ts",
+          "clientes.module.ts",
+          "clientes.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/clientes/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/clientes/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-cliente.dto.ts",
+          "update-cliente.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/compras": {
+        "fileCount": 3,
+        "files": [
+          "compras.controller.ts",
+          "compras.module.ts",
+          "compras.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/compras/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/compras/dto": {
+        "fileCount": 2,
+        "files": [
+          "compra-item.dto.ts",
+          "create-compra.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/configuracion": {
+        "fileCount": 3,
+        "files": [
+          "configuracion.controller.ts",
+          "configuracion.module.ts",
+          "configuracion.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/configuracion/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/configuracion/dto": {
+        "fileCount": 1,
+        "files": [
+          "update-empresa.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/gastos": {
+        "fileCount": 3,
+        "files": [
+          "gastos.controller.ts",
+          "gastos.module.ts",
+          "gastos.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/gastos/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/gastos/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-gasto.dto.ts",
+          "update-gasto.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/inventario": {
+        "fileCount": 3,
+        "files": [
+          "inventario.controller.ts",
+          "inventario.module.ts",
+          "inventario.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/inventario/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/inventario/dto": {
+        "fileCount": 1,
+        "files": [
+          "create-movimiento.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/personal": {
+        "fileCount": 3,
+        "files": [
+          "personal.controller.ts",
+          "personal.module.ts",
+          "personal.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/personal/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/personal/dto": {
+        "fileCount": 3,
+        "files": [
+          "create-empleado.dto.ts",
+          "create-movimiento-empleado.dto.ts",
+          "update-empleado.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/productos": {
+        "fileCount": 3,
+        "files": [
+          "productos.controller.ts",
+          "productos.module.ts",
+          "productos.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/productos/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/productos/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-producto.dto.ts",
+          "update-producto.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/proveedores": {
+        "fileCount": 3,
+        "files": [
+          "proveedores.controller.ts",
+          "proveedores.module.ts",
+          "proveedores.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/proveedores/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/proveedores/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-proveedor.dto.ts",
+          "update-proveedor.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/modules/ventas": {
+        "fileCount": 3,
+        "files": [
+          "ventas.controller.ts",
+          "ventas.module.ts",
+          "ventas.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/auth/interfaces",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/modules/ventas/dto",
+          "backend/src/prisma",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/ventas/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-venta.dto.ts",
+          "venta-item.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/prisma": {
+        "fileCount": 2,
+        "files": [
+          "prisma.module.ts",
+          "prisma.service.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/recipes": {
+        "fileCount": 3,
+        "files": [
+          "recipes.controller.ts",
+          "recipes.module.ts",
+          "recipes.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/prisma",
+          "backend/src/recipes/dto"
+        ]
+      },
+      "backend/src/recipes/dto": {
+        "fileCount": 3,
+        "files": [
+          "create-recipe.dto.ts",
+          "recipe-ingredient.dto.ts",
+          "update-recipe.dto.ts"
+        ],
+        "dependsOn": []
+      },
+      "backend/src/shared/audit": {
+        "fileCount": 2,
+        "files": [
+          "audit.module.ts",
+          "audit.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/prisma"
+        ]
+      },
+      "backend/src/users": {
+        "fileCount": 3,
+        "files": [
+          "users.controller.ts",
+          "users.module.ts",
+          "users.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/auth/guards",
+          "backend/src/common/decorators",
+          "backend/src/common/guards",
+          "backend/src/prisma",
+          "backend/src/users/dto"
+        ]
+      },
+      "backend/src/users/dto": {
+        "fileCount": 1,
+        "files": [
+          "update-user-role.dto.ts"
+        ],
+        "dependsOn": []
+      }
+    }
+  },
+  "frontend": {
+    "root": "erp-cocteleria-frontend/src",
+    "totalFiles": 48,
+    "totalGroups": 28,
+    "modules": {
+      "src/app": {
+        "fileCount": 4,
+        "files": [
+          "globals.css",
+          "layout.tsx",
+          "page.tsx",
+          "providers.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/app/(app)": {
+        "fileCount": 1,
+        "files": [
+          "layout.tsx"
+        ],
+        "dependsOn": [
+          "src/components/layout",
+          "src/lib",
+          "src/modules/shared/components"
+        ]
+      },
+      "src/app/(app)/auditoria": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/caja": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/clientes": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/clientes/[id]": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/compras": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/configuracion": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/dashboard": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/dashboard",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/eventos": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/gastos": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/ingresos": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/inventario": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/personal": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/personal/[id]": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/productos": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/proveedores": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/proveedores/[id]": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/reportes": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/ui",
+          "src/lib"
+        ]
+      },
+      "src/app/(app)/servicios": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/layout"
+        ]
+      },
+      "src/app/cotizador": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/components/cotizador",
+          "src/components/layout"
+        ]
+      },
+      "src/app/login": {
+        "fileCount": 1,
+        "files": [
+          "page.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/components/cotizador": {
+        "fileCount": 4,
+        "files": [
+          "DrinkPicker.tsx",
+          "QuoteBuilder.tsx",
+          "QuoteTicket.tsx",
+          "Stepper.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/components/dashboard": {
+        "fileCount": 5,
+        "files": [
+          "ActividadRecienteList.tsx",
+          "IngresosGastosChart.tsx",
+          "KpiCard.tsx",
+          "ProximosEventosList.tsx",
+          "StockCriticoPanel.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/components/layout": {
+        "fileCount": 3,
+        "files": [
+          "AppHeader.tsx",
+          "ComingSoon.tsx",
+          "Topbar.tsx"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      },
+      "src/components/ui": {
+        "fileCount": 3,
+        "files": [
+          "Field.tsx",
+          "Modal.tsx",
+          "styles.ts"
+        ],
+        "dependsOn": []
+      },
+      "src/lib": {
+        "fileCount": 6,
+        "files": [
+          "api.ts",
+          "auth-context.tsx",
+          "format.ts",
+          "quote-data.ts",
+          "quote.ts",
+          "utils.ts"
+        ],
+        "dependsOn": []
+      },
+      "src/modules/shared/components": {
+        "fileCount": 2,
+        "files": [
+          "Sidebar.tsx",
+          "nav-items.ts"
+        ],
+        "dependsOn": [
+          "src/lib"
+        ]
+      }
+    }
+  }
+}

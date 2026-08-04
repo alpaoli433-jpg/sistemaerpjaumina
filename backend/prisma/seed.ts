@@ -1,10 +1,10 @@
 import 'dotenv/config';
 import * as bcrypt from 'bcrypt';
 import { PrismaClient, Unit, DrinkCategory, EventStatus } from '@prisma/client';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 const prisma = new PrismaClient({
-  adapter: new PrismaBetterSqlite3({ url: process.env.DATABASE_URL! }),
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
 });
 
 const SALT_ROUNDS = 10;
