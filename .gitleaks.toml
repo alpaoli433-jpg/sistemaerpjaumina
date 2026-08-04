@@ -1,0 +1,17 @@
+title = "Ja'umina ERP — gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+  '''node_modules''',
+  '''\.next''',
+  '''dist''',
+  '''\.git/''',
+  '''\.graph''',
+  '''package-lock\.json''',
+  '''\.db$''',
+  '''(^|/)\.env$''',                # gitignoreado; el hook de pre-commit (--staged) ya no lo ve
+  '''backend/README\.md''',         # badge de CircleCI del scaffold de Nest, no es un secreto real
+]

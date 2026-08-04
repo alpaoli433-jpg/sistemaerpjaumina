@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T11:33:20.814Z",
+  "generatedAt": "2026-08-04T14:49:05.789Z",
   "howToRegenerate": "npm run graph:generate (desde la raíz del repo)",
   "note": "Mapa agrupado por carpeta (no por archivo individual) para lectura rápida. Los dumps completos archivo-por-archivo están en architecture-map.{backend,frontend}.json.",
   "backend": {

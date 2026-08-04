@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "Ja'umina ERP",
+    "description": "Colección base para pruebas de API con Newman/Postman. Pensada como punto de partida para la futura integración de Facturación Electrónica (ver carpeta homónima) — hoy solo tiene un smoke test de login.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4001" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('devuelve accessToken', () => pm.expect(body.accessToken).to.be.a('string'));",
+                  "pm.collectionVariables.set('token', body.accessToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"admin@cocteleriapremium.com\",\"password\":\"Admin123!\"}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Facturación Electrónica (futuro)",
+      "description": "Placeholder — todavía no existe el módulo en el backend. Ver PENDIENTES.md / JAUMINA_WORKSPACE_RULES.md roadmap v2.",
+      "item": []
+    }
+  ]
+}

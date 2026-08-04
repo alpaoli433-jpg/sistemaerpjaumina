@@ -6,15 +6,21 @@
   "scripts": {
     "graph:backend": "depcruise backend/src --config .dependency-cruiser.backend.cjs --output-type json > .graph/architecture-map.backend.json && depcruise backend/src --config .dependency-cruiser.backend.cjs --output-type dot > .graph/architecture-map.backend.dot",
     "graph:frontend": "cd erp-cocteleria-frontend && depcruise src --config ../.dependency-cruiser.frontend.cjs --output-type json > ../.graph/architecture-map.frontend.json && depcruise src --config ../.dependency-cruiser.frontend.cjs --output-type dot > ../.graph/architecture-map.frontend.dot",
-    "graph:generate": "npm run graph:backend && npm run graph:frontend && node scripts/build-architecture-summary.cjs"
+    "graph:generate": "npm run graph:backend && npm run graph:frontend && node scripts/build-architecture-summary.cjs",
+    "secrets:scan": "gitleaks detect --no-git -s .",
+    "prepare": "simple-git-hooks"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alpaoli433-jpg/sistemaerpjaumina.git"
   },
   "license": "UNLICENSED",
+  "simple-git-hooks": {
+    "pre-commit": "gitleaks protect --staged --verbose"
+  },
   "devDependencies": {
     "dependency-cruiser": "^18.1.1",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^5.9.3"
   }
 }

@@ -1,0 +1,25 @@
+# Dependencias y artefactos generados — no aportan contexto útil y son pesados
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+dist/
+**/dist/
+build/
+**/build/
+.git/
+coverage/
+**/coverage/
+
+# Lockfiles (ruido, muy grandes; ver package.json para versiones)
+package-lock.json
+**/package-lock.json
+yarn.lock
+**/yarn.lock
+
+# Bases de datos locales
+*.db
+*.db-journal
+
+# Cache incremental de TypeScript
+*.tsbuildinfo
