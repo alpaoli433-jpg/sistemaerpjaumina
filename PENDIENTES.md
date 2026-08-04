@@ -14,9 +14,6 @@
 
 ## Media
 
-- [ ] Migrar los módulos viejos (`auth`, `users`, `ingredients`, `recipes`,
-      `events`, `dashboard`, `prisma`, `common`) a `src/modules/...` para
-      consistencia con el resto del backend (regla de arquitectura §6).
 - [ ] Definir con el usuario qué es "Servicios" antes de construir su modelo
       (¿= `Producto`? ¿dotación de staff/equipamiento por evento?) — hoy es
       un stub sin backend.

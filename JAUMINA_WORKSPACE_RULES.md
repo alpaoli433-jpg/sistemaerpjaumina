@@ -26,9 +26,9 @@ módulos independientes y reutilizables · Componentes `PascalCase`, funciones
 
 ## Arquitectura
 
-Módulos nuevos en `src/modules/<nombre>/`. Los viejos (`auth`, `users`,
-`ingredients`, `recipes`, `events`, `dashboard`, `prisma`, `common`) siguen
-planos en `src/<nombre>/` — ver `PENDIENTES.md` antes de migrarlos.
+Todos los módulos del backend viven en `src/modules/<nombre>/` (incluye los
+antes "legacy": `auth`, `users`, `ingredients`, `recipes`, `events`,
+`dashboard`, `prisma`, `common`).
 
 ## Reglas para Claude Code
 

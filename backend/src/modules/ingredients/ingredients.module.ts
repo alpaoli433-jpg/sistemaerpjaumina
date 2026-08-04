@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuditModule } from '../shared/audit/audit.module';
+import { AuditModule } from '../../shared/audit/audit.module';
 import { IngredientsController } from './ingredients.controller';
 import { IngredientsService } from './ingredients.service';
 
