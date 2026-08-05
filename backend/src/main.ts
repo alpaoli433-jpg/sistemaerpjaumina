@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 
 // Puertos habituales de `next dev` en esta máquina: 3000/3001 suelen estar
@@ -14,6 +15,7 @@ const DEFAULT_DEV_ORIGINS = [
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(helmet());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.enableCors({
     origin: process.env.FRONTEND_URL?.split(',') ?? DEFAULT_DEV_ORIGINS,

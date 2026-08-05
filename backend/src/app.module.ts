@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './modules/prisma/prisma.module';
@@ -25,6 +27,9 @@ import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
+    // Límite global de requests por IP — mitiga fuerza bruta y abuso básico;
+    // /auth/login tiene un límite más estricto propio (ver AuthController).
+    ThrottlerModule.forRoot([{ ttl: 60_000, limit: 100 }]),
     PrismaModule,
     AuthModule,
     HealthModule,
@@ -48,6 +53,6 @@ import { HealthModule } from './health/health.module';
     ServiciosModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}

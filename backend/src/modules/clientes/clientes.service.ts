@@ -31,7 +31,12 @@ export class ClientesService {
     const take = query.take;
     const skip = query.skip ?? 0;
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.cliente.findMany({ where, orderBy: { name: 'asc' }, take, skip }),
+      this.prisma.cliente.findMany({
+        where,
+        orderBy: { name: 'asc' },
+        take,
+        skip,
+      }),
       this.prisma.cliente.count({ where }),
     ]);
     return { data, total, take, skip };

@@ -26,12 +26,20 @@ export class ProveedoresService {
   async findAll(query: PaginationQueryDto = {}) {
     const where = { deletedAt: null };
     if (query.take === undefined) {
-      return this.prisma.proveedor.findMany({ where, orderBy: { name: 'asc' } });
+      return this.prisma.proveedor.findMany({
+        where,
+        orderBy: { name: 'asc' },
+      });
     }
     const take = query.take;
     const skip = query.skip ?? 0;
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.proveedor.findMany({ where, orderBy: { name: 'asc' }, take, skip }),
+      this.prisma.proveedor.findMany({
+        where,
+        orderBy: { name: 'asc' },
+        take,
+        skip,
+      }),
       this.prisma.proveedor.count({ where }),
     ]);
     return { data, total, take, skip };
