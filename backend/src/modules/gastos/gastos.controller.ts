@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { Role } from '@prisma/client';
@@ -14,6 +15,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/interfaces/authenticated-user.interface';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { GastosService } from './gastos.service';
 import { CreateGastoDto } from './dto/create-gasto.dto';
 import { UpdateGastoDto } from './dto/update-gasto.dto';
@@ -30,8 +32,8 @@ export class GastosController {
   }
 
   @Get()
-  findAll() {
-    return this.gastosService.findAll();
+  findAll(@Query() query: PaginationQueryDto) {
+    return this.gastosService.findAll(query);
   }
 
   @Get(':id')

@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { Role } from '@prisma/client';
@@ -14,6 +15,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/interfaces/authenticated-user.interface';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { ProveedoresService } from './proveedores.service';
 import { CreateProveedorDto } from './dto/create-proveedor.dto';
 import { UpdateProveedorDto } from './dto/update-proveedor.dto';
@@ -33,8 +35,8 @@ export class ProveedoresController {
   }
 
   @Get()
-  findAll() {
-    return this.proveedoresService.findAll();
+  findAll(@Query() query: PaginationQueryDto) {
+    return this.proveedoresService.findAll(query);
   }
 
   @Get(':id')

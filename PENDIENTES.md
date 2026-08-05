@@ -14,8 +14,6 @@
 
 ## Media
 
-- [ ] Paginación server-side en listados (`/clientes`, `/productos`, etc.)
-      antes de que el volumen de datos crezca en producción.
 - [ ] Setear `FRONTEND_URL` en las env vars del servicio de Render cuando el
       frontend tenga su propio deploy (CORS).
 

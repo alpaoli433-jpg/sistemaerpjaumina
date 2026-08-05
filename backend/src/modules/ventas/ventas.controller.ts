@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { Role } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/interfaces/authenticated-user.interface';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { VentasService } from './ventas.service';
 import { CreateVentaDto } from './dto/create-venta.dto';
 
@@ -20,8 +21,8 @@ export class VentasController {
   }
 
   @Get()
-  findAll() {
-    return this.ventasService.findAll();
+  findAll(@Query() query: PaginationQueryDto) {
+    return this.ventasService.findAll(query);
   }
 
   @Get(':id')

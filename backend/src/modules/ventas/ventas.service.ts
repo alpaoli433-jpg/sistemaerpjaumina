@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../../shared/audit/audit.service';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { CreateVentaDto } from './dto/create-venta.dto';
 
 const VENTA_INCLUDE = {
@@ -109,12 +110,28 @@ export class VentasService {
     return this.findOne(venta.id);
   }
 
-  findAll() {
-    return this.prisma.venta.findMany({
-      where: { deletedAt: null },
-      include: VENTA_INCLUDE,
-      orderBy: { saleDate: 'desc' },
-    });
+  async findAll(query: PaginationQueryDto = {}) {
+    const where = { deletedAt: null };
+    if (query.take === undefined) {
+      return this.prisma.venta.findMany({
+        where,
+        include: VENTA_INCLUDE,
+        orderBy: { saleDate: 'desc' },
+      });
+    }
+    const take = query.take;
+    const skip = query.skip ?? 0;
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.venta.findMany({
+        where,
+        include: VENTA_INCLUDE,
+        orderBy: { saleDate: 'desc' },
+        take,
+        skip,
+      }),
+      this.prisma.venta.count({ where }),
+    ]);
+    return { data, total, take, skip };
   }
 
   async findOne(id: string) {

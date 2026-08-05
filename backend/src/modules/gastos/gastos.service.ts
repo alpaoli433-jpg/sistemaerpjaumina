@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../../shared/audit/audit.service';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { CreateGastoDto } from './dto/create-gasto.dto';
 import { UpdateGastoDto } from './dto/update-gasto.dto';
 
@@ -34,12 +35,29 @@ export class GastosService {
     return gasto;
   }
 
-  findAll() {
-    return this.prisma.gasto.findMany({
-      where: { deletedAt: null },
-      include: { compra: { include: { proveedor: true } } },
-      orderBy: { expenseDate: 'desc' },
-    });
+  async findAll(query: PaginationQueryDto = {}) {
+    const where = { deletedAt: null };
+    const include = { compra: { include: { proveedor: true } } };
+    if (query.take === undefined) {
+      return this.prisma.gasto.findMany({
+        where,
+        include,
+        orderBy: { expenseDate: 'desc' },
+      });
+    }
+    const take = query.take;
+    const skip = query.skip ?? 0;
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.gasto.findMany({
+        where,
+        include,
+        orderBy: { expenseDate: 'desc' },
+        take,
+        skip,
+      }),
+      this.prisma.gasto.count({ where }),
+    ]);
+    return { data, total, take, skip };
   }
 
   async findOne(id: string) {

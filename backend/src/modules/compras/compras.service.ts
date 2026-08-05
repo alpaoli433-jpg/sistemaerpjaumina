@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../../shared/audit/audit.service';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { CreateCompraDto } from './dto/create-compra.dto';
 
 const COMPRA_INCLUDE = {
@@ -87,12 +88,28 @@ export class ComprasService {
     return this.findOne(compra.id);
   }
 
-  findAll() {
-    return this.prisma.compra.findMany({
-      where: { deletedAt: null },
-      include: COMPRA_INCLUDE,
-      orderBy: { purchaseDate: 'desc' },
-    });
+  async findAll(query: PaginationQueryDto = {}) {
+    const where = { deletedAt: null };
+    if (query.take === undefined) {
+      return this.prisma.compra.findMany({
+        where,
+        include: COMPRA_INCLUDE,
+        orderBy: { purchaseDate: 'desc' },
+      });
+    }
+    const take = query.take;
+    const skip = query.skip ?? 0;
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.compra.findMany({
+        where,
+        include: COMPRA_INCLUDE,
+        orderBy: { purchaseDate: 'desc' },
+        take,
+        skip,
+      }),
+      this.prisma.compra.count({ where }),
+    ]);
+    return { data, total, take, skip };
   }
 
   async findOne(id: string) {

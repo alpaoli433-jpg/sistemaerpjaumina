@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../../shared/audit/audit.service';
+import { PaginationQueryDto } from '../../shared/pagination/pagination-query.dto';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
 
@@ -35,11 +36,18 @@ export class ProductosService {
     return producto;
   }
 
-  findAll() {
-    return this.prisma.producto.findMany({
-      where: { deletedAt: null },
-      orderBy: { name: 'asc' },
-    });
+  async findAll(query: PaginationQueryDto = {}) {
+    const where = { deletedAt: null };
+    if (query.take === undefined) {
+      return this.prisma.producto.findMany({ where, orderBy: { name: 'asc' } });
+    }
+    const take = query.take;
+    const skip = query.skip ?? 0;
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.producto.findMany({ where, orderBy: { name: 'asc' }, take, skip }),
+      this.prisma.producto.count({ where }),
+    ]);
+    return { data, total, take, skip };
   }
 
   async findOne(id: string) {
