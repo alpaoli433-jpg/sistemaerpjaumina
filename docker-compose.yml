@@ -13,12 +13,5 @@ services:
     volumes:
       - cocteleria_pgdata:/var/lib/postgresql/data
 
-  redis:
-    image: redis:7-alpine
-    container_name: cocteleria_redis
-    restart: unless-stopped
-    ports:
-      - '6379:6379'
-
 volumes:
   cocteleria_pgdata:

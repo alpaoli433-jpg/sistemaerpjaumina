@@ -24,6 +24,5 @@
 - [ ] Export a PDF real en Reportes (hoy solo CSV client-side).
 - [ ] Graphviz no está instalado — el grafo de arquitectura solo genera
       `.dot`/`.json`, no imágenes.
-- [ ] `@nestjs/bullmq`/`bullmq` instalados sin ningún consumidor todavía.
 - [ ] `gitleaks` (hook de pre-commit) es un binario, no un paquete npm —
       instalarlo a mano en cada máquina nueva que vaya a commitear.
