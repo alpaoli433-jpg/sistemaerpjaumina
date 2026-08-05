@@ -20,6 +20,9 @@
 ## Baja
 
 - [ ] Graphviz no está instalado — el grafo de arquitectura solo genera
-      `.dot`/`.json`, no imágenes.
+      `.dot`/`.json`, no imágenes. Instalador vía `winget install
+      Graphviz.Graphviz` requiere elevación UAC (solo hay build machine-scope,
+      no user-scope) — **no automatizable desde una sesión no interactiva,
+      requiere click manual de administrador una vez**.
 - [ ] `gitleaks` (hook de pre-commit) es un binario, no un paquete npm —
       instalarlo a mano en cada máquina nueva que vaya a commitear.
