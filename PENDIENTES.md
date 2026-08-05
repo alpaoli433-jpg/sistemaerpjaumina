@@ -19,7 +19,6 @@
 
 ## Baja
 
-- [ ] Export a PDF real en Reportes (hoy solo CSV client-side).
 - [ ] Graphviz no está instalado — el grafo de arquitectura solo genera
       `.dot`/`.json`, no imágenes.
 - [ ] `gitleaks` (hook de pre-commit) es un binario, no un paquete npm —

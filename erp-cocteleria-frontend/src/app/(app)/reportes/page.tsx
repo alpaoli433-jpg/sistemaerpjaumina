@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Download, FileBarChart } from 'lucide-react';
+import { Download, FileBarChart, FileText } from 'lucide-react';
 import { useAuth } from '@/lib/auth-context';
 import { getCompras, getGastos, getVentas } from '@/lib/api';
 import { formatGuaranies } from '@/lib/format';
@@ -34,6 +34,34 @@ function downloadCsv(rows: Movimiento[]) {
   link.download = `reporte-${toInputDate(new Date())}.csv`;
   link.click();
   URL.revokeObjectURL(url);
+}
+
+async function downloadPdf(rows: Movimiento[], from: string, to: string) {
+  const [{ default: JsPDF }, { default: autoTable }] = await Promise.all([
+    import('jspdf'),
+    import('jspdf-autotable'),
+  ]);
+
+  const doc = new JsPDF();
+  doc.setFontSize(14);
+  doc.text('Reporte de movimientos — Ja’umina ERP', 14, 16);
+  doc.setFontSize(10);
+  doc.text(`Período: ${from} a ${to}`, 14, 23);
+
+  autoTable(doc, {
+    startY: 28,
+    head: [['Fecha', 'Tipo', 'Detalle', 'Monto (Gs)']],
+    body: rows.map((row) => [
+      new Date(row.date).toLocaleDateString('es-PY'),
+      row.tipo,
+      row.detalle,
+      formatGuaranies(row.signo * row.monto),
+    ]),
+    styles: { fontSize: 9 },
+    headStyles: { fillColor: [40, 40, 40] },
+  });
+
+  doc.save(`reporte-${toInputDate(new Date())}.pdf`);
 }
 
 export default function ReportesPage() {
@@ -111,19 +139,31 @@ export default function ReportesPage() {
         <div>
           <h1 className="font-display text-2xl font-semibold text-anthracite">Reportes</h1>
           <p className="mt-1 text-sm text-anthracite-soft">
-            Ventas y gastos por período, con exportación a CSV (compatible con Excel).
+            Ventas y gastos por período, con exportación a CSV o PDF.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => downloadCsv(movimientos)}
-          disabled={movimientos.length === 0}
-          className={buttonGhost}
-        >
-          <span className="flex items-center gap-1.5">
-            <Download className="h-4 w-4" /> Descargar CSV
-          </span>
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => downloadCsv(movimientos)}
+            disabled={movimientos.length === 0}
+            className={buttonGhost}
+          >
+            <span className="flex items-center gap-1.5">
+              <Download className="h-4 w-4" /> Descargar CSV
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => downloadPdf(movimientos, from, to)}
+            disabled={movimientos.length === 0}
+            className={buttonGhost}
+          >
+            <span className="flex items-center gap-1.5">
+              <FileText className="h-4 w-4" /> Descargar PDF
+            </span>
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-wrap items-end gap-4">
