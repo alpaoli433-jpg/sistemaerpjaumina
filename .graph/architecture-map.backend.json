@@ -409,6 +409,23 @@
         },
         {
           "dynamic": false,
+          "module": "./modules/servicios/servicios.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/servicios.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
           "module": "./modules/staff/staff.module",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
@@ -587,6 +604,7 @@
         "backend/src/modules/productos/productos.service.ts",
         "backend/src/modules/proveedores/proveedores.service.ts",
         "backend/src/modules/recipes/recipes.service.ts",
+        "backend/src/modules/servicios/servicios.service.ts",
         "backend/src/modules/staff/staff.service.ts",
         "backend/src/modules/users/users.service.ts",
         "backend/src/modules/ventas/ventas.service.ts"
@@ -770,6 +788,7 @@
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
         "backend/src/modules/recipes/recipes.controller.ts",
+        "backend/src/modules/servicios/servicios.controller.ts",
         "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/users/users.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts"
@@ -805,6 +824,7 @@
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
         "backend/src/modules/recipes/recipes.controller.ts",
+        "backend/src/modules/servicios/servicios.controller.ts",
         "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/users/users.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts"
@@ -864,6 +884,7 @@
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
         "backend/src/modules/recipes/recipes.controller.ts",
+        "backend/src/modules/servicios/servicios.controller.ts",
         "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/users/users.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts"
@@ -891,6 +912,7 @@
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
         "backend/src/modules/recipes/recipes.controller.ts",
+        "backend/src/modules/servicios/servicios.controller.ts",
         "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts"
       ],
@@ -1161,6 +1183,7 @@
         "backend/src/modules/productos/productos.controller.ts",
         "backend/src/modules/proveedores/proveedores.controller.ts",
         "backend/src/modules/recipes/recipes.controller.ts",
+        "backend/src/modules/servicios/servicios.controller.ts",
         "backend/src/modules/staff/staff.controller.ts",
         "backend/src/modules/ventas/ventas.controller.ts"
       ],
@@ -1414,6 +1437,7 @@
         "backend/src/modules/productos/productos.module.ts",
         "backend/src/modules/proveedores/proveedores.module.ts",
         "backend/src/modules/recipes/recipes.module.ts",
+        "backend/src/modules/servicios/servicios.module.ts",
         "backend/src/modules/staff/staff.module.ts",
         "backend/src/modules/ventas/ventas.module.ts"
       ],
@@ -1455,6 +1479,7 @@
         "backend/src/modules/productos/productos.service.ts",
         "backend/src/modules/proveedores/proveedores.service.ts",
         "backend/src/modules/recipes/recipes.service.ts",
+        "backend/src/modules/servicios/servicios.service.ts",
         "backend/src/modules/staff/staff.service.ts",
         "backend/src/modules/ventas/ventas.service.ts"
       ],
@@ -5363,6 +5388,332 @@
       "valid": true
     },
     {
+      "source": "backend/src/modules/servicios/servicios.module.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../shared/audit/audit.module",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.module.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./servicios.controller",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/servicios.controller.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./servicios.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/servicios.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/app.module.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/servicios/servicios.controller.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../auth/guards/jwt-auth.guard",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/auth/guards/jwt-auth.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../auth/interfaces/authenticated-user.interface",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "type-only",
+            "import"
+          ],
+          "resolved": "backend/src/modules/auth/interfaces/authenticated-user.interface.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../common/decorators/current-user.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/common/decorators/current-user.decorator.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../common/decorators/roles.decorator",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/common/decorators/roles.decorator.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../common/guards/roles.guard",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/common/guards/roles.guard.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/create-servicio.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/dto/create-servicio.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/update-servicio.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/dto/update-servicio.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./servicios.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/servicios.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/modules/servicios/servicios.module.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/servicios/dto/create-servicio.dto.ts",
+      "dependencies": [],
+      "dependents": [
+        "backend/src/modules/servicios/servicios.controller.ts",
+        "backend/src/modules/servicios/dto/update-servicio.dto.ts",
+        "backend/src/modules/servicios/servicios.service.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/servicios/dto/update-servicio.dto.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./create-servicio.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/dto/create-servicio.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/modules/servicios/servicios.controller.ts",
+        "backend/src/modules/servicios/servicios.service.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "backend/src/modules/servicios/servicios.service.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../shared/audit/audit.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/shared/audit/audit.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "../prisma/prisma.service",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/prisma/prisma.service.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/create-servicio.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/dto/create-servicio.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./dto/update-servicio.dto",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "backend/src/modules/servicios/dto/update-servicio.dto.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "backend/src/modules/servicios/servicios.module.ts",
+        "backend/src/modules/servicios/servicios.controller.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
       "source": "backend/src/modules/staff/staff.module.ts",
       "dependencies": [
         {
@@ -6186,8 +6537,8 @@
     "warn": 0,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 106,
-    "totalDependenciesCruised": 291,
+    "totalCruised": 111,
+    "totalDependenciesCruised": 308,
     "optionsUsed": {
       "baseDir": "C:\\ANTIGRAVITY PROYECTOS\\erp-distribuidora",
       "combinedDependencies": false,

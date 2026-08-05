@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-04T22:38:33.944Z",
+  "generatedAt": "2026-08-05T01:28:13.202Z",
   "howToRegenerate": "npm run graph:generate (desde la raíz del repo)",
   "note": "Mapa agrupado por carpeta (no por archivo individual) para lectura rápida. Los dumps completos archivo-por-archivo están en architecture-map.{backend,frontend}.json.",
   "backend": {
     "root": "backend/src",
-    "totalFiles": 106,
-    "totalGroups": 44,
+    "totalFiles": 111,
+    "totalGroups": 46,
     "modules": {
       "backend/src": {
         "fileCount": 5,
@@ -34,6 +34,7 @@
           "backend/src/modules/productos",
           "backend/src/modules/proveedores",
           "backend/src/modules/recipes",
+          "backend/src/modules/servicios",
           "backend/src/modules/staff",
           "backend/src/modules/users",
           "backend/src/modules/ventas"
@@ -464,6 +465,31 @@
         ],
         "dependsOn": []
       },
+      "backend/src/modules/servicios": {
+        "fileCount": 3,
+        "files": [
+          "servicios.controller.ts",
+          "servicios.module.ts",
+          "servicios.service.ts"
+        ],
+        "dependsOn": [
+          "backend/src/modules/auth/guards",
+          "backend/src/modules/auth/interfaces",
+          "backend/src/modules/common/decorators",
+          "backend/src/modules/common/guards",
+          "backend/src/modules/prisma",
+          "backend/src/modules/servicios/dto",
+          "backend/src/shared/audit"
+        ]
+      },
+      "backend/src/modules/servicios/dto": {
+        "fileCount": 2,
+        "files": [
+          "create-servicio.dto.ts",
+          "update-servicio.dto.ts"
+        ],
+        "dependsOn": []
+      },
       "backend/src/modules/staff": {
         "fileCount": 3,
         "files": [
@@ -750,7 +776,8 @@
           "page.tsx"
         ],
         "dependsOn": [
-          "src/components/layout"
+          "src/components/ui",
+          "src/lib"
         ]
       },
       "src/app/cotizador": {

@@ -14,9 +14,6 @@
 
 ## Media
 
-- [ ] Definir con el usuario qué es "Servicios" antes de construir su modelo
-      (¿= `Producto`? ¿dotación de staff/equipamiento por evento?) — hoy es
-      un stub sin backend.
 - [ ] Paginación server-side en listados (`/clientes`, `/productos`, etc.)
       antes de que el volumen de datos crezca en producción.
 - [ ] Setear `FRONTEND_URL` en las env vars del servicio de Render cuando el

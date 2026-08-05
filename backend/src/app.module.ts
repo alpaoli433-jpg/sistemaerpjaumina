@@ -20,6 +20,7 @@ import { PersonalModule } from './modules/personal/personal.module';
 import { AuditoriaModule } from './modules/auditoria/auditoria.module';
 import { ConfiguracionModule } from './modules/configuracion/configuracion.module';
 import { StaffModule } from './modules/staff/staff.module';
+import { ServiciosModule } from './modules/servicios/servicios.module';
 import { HealthModule } from './health/health.module';
 
 @Module({
@@ -44,6 +45,7 @@ import { HealthModule } from './health/health.module';
     AuditoriaModule,
     ConfiguracionModule,
     StaffModule,
+    ServiciosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

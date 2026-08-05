@@ -117,6 +117,59 @@ export function getStaff(token: string): Promise<Staff[]> {
   return request<Staff[]>('/staff', { headers: authHeaders(token) });
 }
 
+// Dotación de staff extra / equipamiento / logística asignable a un evento
+// además del Staff fijo (ver backend/prisma/schema.prisma: Servicio/EventServicio).
+export interface Servicio {
+  id: string;
+  name: string;
+  description: string | null;
+  category: string | null;
+  unitPrice: number;
+}
+
+export interface CreateServicioPayload {
+  name: string;
+  description?: string;
+  category?: string;
+  unitPrice?: number;
+}
+
+export type UpdateServicioPayload = Partial<CreateServicioPayload>;
+
+export function getServicios(token: string): Promise<Servicio[]> {
+  return request<Servicio[]>('/servicios', { headers: authHeaders(token) });
+}
+
+export function createServicio(
+  token: string,
+  payload: CreateServicioPayload,
+): Promise<Servicio> {
+  return request<Servicio>('/servicios', {
+    method: 'POST',
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+}
+
+export function updateServicio(
+  token: string,
+  id: string,
+  payload: UpdateServicioPayload,
+): Promise<Servicio> {
+  return request<Servicio>(`/servicios/${id}`, {
+    method: 'PATCH',
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+}
+
+export function deleteServicio(token: string, id: string): Promise<void> {
+  return request<void>(`/servicios/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(token),
+  });
+}
+
 interface EventPayload {
   title: string;
   clientName: string;
@@ -129,6 +182,7 @@ interface EventPayload {
   depositPaid?: number;
   recipeIds?: string[];
   staffIds?: string[];
+  servicioIds?: string[];
 }
 
 export type EventStatus = 'COTIZADO' | 'CONFIRMADO' | 'EN_CURSO' | 'FINALIZADO' | 'CANCELADO';
@@ -150,6 +204,12 @@ export interface EventRecord {
     id: string;
     staffId: string;
     staff: { id: string; name: string; role: string; dailyRate: number; phone: string | null };
+  }>;
+  servicios: Array<{
+    id: string;
+    servicioId: string;
+    quantity: number;
+    servicio: Servicio;
   }>;
 }
 

@@ -7,6 +7,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 const EVENT_INCLUDE = {
   drinks: { include: { recipe: true } },
   staff: { include: { staff: true } },
+  servicios: { include: { servicio: true } },
 } as const;
 
 @Injectable()
@@ -17,7 +18,7 @@ export class EventsService {
   ) {}
 
   async create(dto: CreateEventDto, userId: string) {
-    const { recipeIds, staffIds, eventDate, ...event } = dto;
+    const { recipeIds, staffIds, servicioIds, eventDate, ...event } = dto;
 
     const created = await this.prisma.event.create({
       data: {
@@ -28,6 +29,9 @@ export class EventsService {
           : undefined,
         staff: staffIds
           ? { create: staffIds.map((staffId) => ({ staffId })) }
+          : undefined,
+        servicios: servicioIds
+          ? { create: servicioIds.map((servicioId) => ({ servicioId })) }
           : undefined,
       },
       include: EVENT_INCLUDE,
@@ -61,7 +65,7 @@ export class EventsService {
 
   async update(id: string, dto: UpdateEventDto, userId: string) {
     await this.findOne(id);
-    const { recipeIds, staffIds, eventDate, ...event } = dto;
+    const { recipeIds, staffIds, servicioIds, eventDate, ...event } = dto;
 
     const updated = await this.prisma.event.update({
       where: { id },
@@ -78,6 +82,12 @@ export class EventsService {
           staff: {
             deleteMany: {},
             create: staffIds.map((staffId) => ({ staffId })),
+          },
+        }),
+        ...(servicioIds && {
+          servicios: {
+            deleteMany: {},
+            create: servicioIds.map((servicioId) => ({ servicioId })),
           },
         }),
       },

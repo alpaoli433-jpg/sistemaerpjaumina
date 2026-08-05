@@ -58,4 +58,10 @@ export class CreateEventDto {
   @IsString({ each: true })
   @Type(() => String)
   staffIds?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Type(() => String)
+  servicioIds?: string[];
 }

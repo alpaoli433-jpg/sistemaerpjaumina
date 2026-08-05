@@ -117,7 +117,12 @@ strict digraph "dependency-cruiser output"{
     "src/app/(app)/reportes/page.tsx" -> "src/lib/auth-context.tsx"
     "src/app/(app)/reportes/page.tsx" -> "src/lib/format.ts"
     subgraph "cluster_src" {label="src" subgraph "cluster_src/app" {label="app" subgraph "cluster_src/app/(app)" {label="(app)" subgraph "cluster_src/app/(app)/servicios" {label="servicios" "src/app/(app)/servicios/page.tsx" [label=<page.tsx> tooltip="page.tsx" URL="src/app/(app)/servicios/page.tsx" fillcolor="#bbfeff"] } } } }
-    "src/app/(app)/servicios/page.tsx" -> "src/components/layout/ComingSoon.tsx"
+    "src/app/(app)/servicios/page.tsx" -> "src/components/ui/Field.tsx"
+    "src/app/(app)/servicios/page.tsx" -> "src/components/ui/Modal.tsx"
+    "src/app/(app)/servicios/page.tsx" -> "src/components/ui/styles.ts"
+    "src/app/(app)/servicios/page.tsx" -> "src/lib/api.ts"
+    "src/app/(app)/servicios/page.tsx" -> "src/lib/auth-context.tsx"
+    "src/app/(app)/servicios/page.tsx" -> "src/lib/format.ts"
     subgraph "cluster_src" {label="src" subgraph "cluster_src/app" {label="app" subgraph "cluster_src/app/cotizador" {label="cotizador" "src/app/cotizador/page.tsx" [label=<page.tsx> tooltip="page.tsx" URL="src/app/cotizador/page.tsx" fillcolor="#bbfeff"] } } }
     "src/app/cotizador/page.tsx" -> "src/components/cotizador/QuoteBuilder.tsx"
     "src/app/cotizador/page.tsx" -> "src/components/layout/AppHeader.tsx"
@@ -160,7 +165,7 @@ strict digraph "dependency-cruiser output"{
     subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/dashboard" {label="dashboard" "src/components/dashboard/StockCriticoPanel.tsx" [label=<StockCriticoPanel.tsx> tooltip="StockCriticoPanel.tsx" URL="src/components/dashboard/StockCriticoPanel.tsx" fillcolor="#bbfeff"] } } }
     "src/components/dashboard/StockCriticoPanel.tsx" -> "src/lib/api.ts" [arrowhead="onormal" penwidth="1.0"]
     subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/layout" {label="layout" "src/components/layout/AppHeader.tsx" [label=<AppHeader.tsx> tooltip="AppHeader.tsx" URL="src/components/layout/AppHeader.tsx" fillcolor="#bbfeff"] } } }
-    subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/layout" {label="layout" "src/components/layout/ComingSoon.tsx" [label=<ComingSoon.tsx> tooltip="ComingSoon.tsx" URL="src/components/layout/ComingSoon.tsx" fillcolor="#bbfeff"] } } }
+    subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/layout" {label="layout" "src/components/layout/ComingSoon.tsx" [label=<ComingSoon.tsx> tooltip="ComingSoon.tsx" URL="src/components/layout/ComingSoon.tsx" fillcolor="#ccffcc"] } } }
     subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/layout" {label="layout" "src/components/layout/Topbar.tsx" [label=<Topbar.tsx> tooltip="Topbar.tsx" URL="src/components/layout/Topbar.tsx" fillcolor="#bbfeff"] } } }
     "src/components/layout/Topbar.tsx" -> "src/lib/auth-context.tsx"
     subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/ui" {label="ui" "src/components/ui/Field.tsx" [label=<Field.tsx> tooltip="Field.tsx" URL="src/components/ui/Field.tsx" fillcolor="#bbfeff"] } } }

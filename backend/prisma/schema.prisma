@@ -102,8 +102,9 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  drinks EventDrink[]
-  staff  EventStaff[]
+  drinks    EventDrink[]
+  staff     EventStaff[]
+  servicios EventServicio[]
 }
 
 model EventDrink {
@@ -133,6 +134,34 @@ model EventStaff {
 
   event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
   staff Staff @relation(fields: [staffId], references: [id])
+}
+
+// Dotación de staff extra / equipamiento / logística que se puede sumar a
+// un evento además del Staff fijo — ej. "Mesero adicional", "Carpa 5x5",
+// "Generador eléctrico". Modelo nuevo (no legacy): sigue la convención de
+// dinero en Int (₲) y soft delete de DATABASE_RULES.md, aunque vive junto a
+// Event/Staff porque es parte de la vertical de coctelería.
+model Servicio {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  category    String? // ej. "Staff extra", "Equipamiento", "Logística"
+  unitPrice   Int       @default(0) // ₲
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  events EventServicio[]
+}
+
+model EventServicio {
+  id         String @id @default(uuid())
+  eventId    String
+  servicioId String
+  quantity   Int    @default(1)
+
+  event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  servicio Servicio @relation(fields: [servicioId], references: [id])
 }
 
 model AuditLog {

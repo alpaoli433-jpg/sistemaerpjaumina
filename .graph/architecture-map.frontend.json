@@ -125,7 +125,8 @@
         "src/app/(app)/personal/page.tsx",
         "src/app/(app)/productos/page.tsx",
         "src/app/(app)/proveedores/page.tsx",
-        "src/app/(app)/reportes/page.tsx"
+        "src/app/(app)/reportes/page.tsx",
+        "src/app/(app)/servicios/page.tsx"
       ],
       "orphan": false,
       "valid": true
@@ -147,7 +148,8 @@
         "src/app/(app)/personal/page.tsx",
         "src/app/(app)/productos/page.tsx",
         "src/app/(app)/proveedores/page.tsx",
-        "src/app/(app)/reportes/page.tsx"
+        "src/app/(app)/reportes/page.tsx",
+        "src/app/(app)/servicios/page.tsx"
       ],
       "orphan": false,
       "valid": true
@@ -178,6 +180,7 @@
         "src/app/(app)/proveedores/[id]/page.tsx",
         "src/app/(app)/proveedores/page.tsx",
         "src/app/(app)/reportes/page.tsx",
+        "src/app/(app)/servicios/page.tsx",
         "src/components/cotizador/QuoteBuilder.tsx"
       ],
       "orphan": false,
@@ -224,6 +227,7 @@
         "src/app/(app)/proveedores/[id]/page.tsx",
         "src/app/(app)/proveedores/page.tsx",
         "src/app/(app)/reportes/page.tsx",
+        "src/app/(app)/servicios/page.tsx",
         "src/app/providers.tsx",
         "src/app/login/page.tsx"
       ],
@@ -251,6 +255,7 @@
         "src/app/(app)/productos/page.tsx",
         "src/app/(app)/proveedores/[id]/page.tsx",
         "src/app/(app)/reportes/page.tsx",
+        "src/app/(app)/servicios/page.tsx",
         "src/components/cotizador/DrinkPicker.tsx",
         "src/components/cotizador/QuoteTicket.tsx"
       ],
@@ -399,7 +404,8 @@
         "src/app/(app)/personal/[id]/page.tsx",
         "src/app/(app)/personal/page.tsx",
         "src/app/(app)/productos/page.tsx",
-        "src/app/(app)/proveedores/page.tsx"
+        "src/app/(app)/proveedores/page.tsx",
+        "src/app/(app)/servicios/page.tsx"
       ],
       "orphan": false,
       "valid": true
@@ -2529,7 +2535,7 @@
       "dependencies": [
         {
           "dynamic": false,
-          "module": "@/components/layout/ComingSoon",
+          "module": "@/components/ui/Field",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
           "dependencyTypes": [
@@ -2539,7 +2545,107 @@
             "local",
             "import"
           ],
-          "resolved": "src/components/layout/ComingSoon.tsx",
+          "resolved": "src/components/ui/Field.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "@/components/ui/Modal",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "aliased",
+            "aliased-tsconfig",
+            "aliased-tsconfig-paths",
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/ui/Modal.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "@/components/ui/styles",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "aliased",
+            "aliased-tsconfig",
+            "aliased-tsconfig-paths",
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/ui/styles.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "@/lib/api",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "aliased",
+            "aliased-tsconfig",
+            "aliased-tsconfig-paths",
+            "local",
+            "import"
+          ],
+          "resolved": "src/lib/api.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "@/lib/auth-context",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "aliased",
+            "aliased-tsconfig",
+            "aliased-tsconfig-paths",
+            "local",
+            "import"
+          ],
+          "resolved": "src/lib/auth-context.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "@/lib/format",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "aliased",
+            "aliased-tsconfig",
+            "aliased-tsconfig-paths",
+            "local",
+            "import"
+          ],
+          "resolved": "src/lib/format.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -2549,15 +2655,6 @@
         }
       ],
       "dependents": [],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/layout/ComingSoon.tsx",
-      "dependencies": [],
-      "dependents": [
-        "src/app/(app)/servicios/page.tsx"
-      ],
       "orphan": false,
       "valid": true
     },
@@ -3052,6 +3149,13 @@
       "dependents": [],
       "orphan": true,
       "valid": true
+    },
+    {
+      "source": "src/components/layout/ComingSoon.tsx",
+      "dependencies": [],
+      "dependents": [],
+      "orphan": true,
+      "valid": true
     }
   ],
   "summary": {
@@ -3061,7 +3165,7 @@
     "info": 0,
     "ignore": 0,
     "totalCruised": 48,
-    "totalDependenciesCruised": 127,
+    "totalDependenciesCruised": 132,
     "optionsUsed": {
       "baseDir": "C:\\ANTIGRAVITY PROYECTOS\\erp-distribuidora\\erp-cocteleria-frontend",
       "combinedDependencies": false,

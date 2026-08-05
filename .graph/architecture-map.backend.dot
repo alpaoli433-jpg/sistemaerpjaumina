@@ -28,6 +28,7 @@ strict digraph "dependency-cruiser output"{
     "backend/src/app.module.ts" -> "backend/src/modules/productos/productos.module.ts"
     "backend/src/app.module.ts" -> "backend/src/modules/proveedores/proveedores.module.ts"
     "backend/src/app.module.ts" -> "backend/src/modules/recipes/recipes.module.ts"
+    "backend/src/app.module.ts" -> "backend/src/modules/servicios/servicios.module.ts"
     "backend/src/app.module.ts" -> "backend/src/modules/staff/staff.module.ts"
     "backend/src/app.module.ts" -> "backend/src/modules/users/users.module.ts"
     "backend/src/app.module.ts" -> "backend/src/modules/ventas/ventas.module.ts"
@@ -344,6 +345,27 @@ strict digraph "dependency-cruiser output"{
     "backend/src/modules/recipes/recipes.service.ts" -> "backend/src/modules/prisma/prisma.service.ts"
     "backend/src/modules/recipes/recipes.service.ts" -> "backend/src/modules/recipes/dto/create-recipe.dto.ts"
     "backend/src/modules/recipes/recipes.service.ts" -> "backend/src/modules/recipes/dto/update-recipe.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/servicios" {label="servicios" subgraph "cluster_backend/src/modules/servicios/dto" {label="dto" "backend/src/modules/servicios/dto/create-servicio.dto.ts" [label=<create-servicio.dto.ts> tooltip="create-servicio.dto.ts" URL="backend/src/modules/servicios/dto/create-servicio.dto.ts" fillcolor="#ddfeff"] } } } } }
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/servicios" {label="servicios" subgraph "cluster_backend/src/modules/servicios/dto" {label="dto" "backend/src/modules/servicios/dto/update-servicio.dto.ts" [label=<update-servicio.dto.ts> tooltip="update-servicio.dto.ts" URL="backend/src/modules/servicios/dto/update-servicio.dto.ts" fillcolor="#ddfeff"] } } } } }
+    "backend/src/modules/servicios/dto/update-servicio.dto.ts" -> "backend/src/modules/servicios/dto/create-servicio.dto.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/servicios" {label="servicios" "backend/src/modules/servicios/servicios.controller.ts" [label=<servicios.controller.ts> tooltip="servicios.controller.ts" URL="backend/src/modules/servicios/servicios.controller.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/auth/guards/jwt-auth.guard.ts"
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/auth/interfaces/authenticated-user.interface.ts" [arrowhead="onormal" penwidth="1.0"]
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/common/decorators/current-user.decorator.ts"
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/common/decorators/roles.decorator.ts"
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/common/guards/roles.guard.ts"
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/servicios/dto/create-servicio.dto.ts"
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/servicios/dto/update-servicio.dto.ts"
+    "backend/src/modules/servicios/servicios.controller.ts" -> "backend/src/modules/servicios/servicios.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/servicios" {label="servicios" "backend/src/modules/servicios/servicios.module.ts" [label=<servicios.module.ts> tooltip="servicios.module.ts" URL="backend/src/modules/servicios/servicios.module.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/servicios/servicios.module.ts" -> "backend/src/shared/audit/audit.module.ts"
+    "backend/src/modules/servicios/servicios.module.ts" -> "backend/src/modules/servicios/servicios.controller.ts"
+    "backend/src/modules/servicios/servicios.module.ts" -> "backend/src/modules/servicios/servicios.service.ts"
+    subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/servicios" {label="servicios" "backend/src/modules/servicios/servicios.service.ts" [label=<servicios.service.ts> tooltip="servicios.service.ts" URL="backend/src/modules/servicios/servicios.service.ts" fillcolor="#ddfeff"] } } } }
+    "backend/src/modules/servicios/servicios.service.ts" -> "backend/src/shared/audit/audit.service.ts"
+    "backend/src/modules/servicios/servicios.service.ts" -> "backend/src/modules/prisma/prisma.service.ts"
+    "backend/src/modules/servicios/servicios.service.ts" -> "backend/src/modules/servicios/dto/create-servicio.dto.ts"
+    "backend/src/modules/servicios/servicios.service.ts" -> "backend/src/modules/servicios/dto/update-servicio.dto.ts"
     subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/staff" {label="staff" subgraph "cluster_backend/src/modules/staff/dto" {label="dto" "backend/src/modules/staff/dto/create-staff.dto.ts" [label=<create-staff.dto.ts> tooltip="create-staff.dto.ts" URL="backend/src/modules/staff/dto/create-staff.dto.ts" fillcolor="#ddfeff"] } } } } }
     subgraph "cluster_backend" {label="backend" subgraph "cluster_backend/src" {label="src" subgraph "cluster_backend/src/modules" {label="modules" subgraph "cluster_backend/src/modules/staff" {label="staff" subgraph "cluster_backend/src/modules/staff/dto" {label="dto" "backend/src/modules/staff/dto/update-staff.dto.ts" [label=<update-staff.dto.ts> tooltip="update-staff.dto.ts" URL="backend/src/modules/staff/dto/update-staff.dto.ts" fillcolor="#ddfeff"] } } } } }
     "backend/src/modules/staff/dto/update-staff.dto.ts" -> "backend/src/modules/staff/dto/create-staff.dto.ts"
